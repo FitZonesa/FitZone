@@ -100,6 +100,16 @@
         .brand-home { font-size: 80px; font-weight: 900; background: linear-gradient(to right, var(--blue), #FFF, var(--blue)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 20px; }
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
+        /* Social Footer */
+        .social-footer { text-align: center; padding: 40px 20px; margin-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); }
+        .social-footer h3 { margin: 0 0 20px 0; font-weight: 700; color: var(--blue); }
+        .social-links { display: flex; gap: 20px; justify-content: center; margin-top: 15px; }
+        .social-icon { display: flex; flex-direction: column; align-items: center; color: #fff; text-decoration: none; transition: 0.3s; padding: 15px; border-radius: 15px; background: rgba(255,255,255,0.05); min-width: 120px; border: 1px solid #222; }
+        .social-icon i { font-size: 30px; margin-bottom: 8px; color: var(--blue); }
+        .social-icon:hover { background: var(--blue); transform: translateY(-5px); border-color: var(--blue); }
+        .social-icon:hover i, .social-icon:hover span { color: #000; }
+        .social-icon span { font-size: 14px; font-weight: 600; }
+
         /* Responsive Design for Mobile */
         @media (max-width: 768px) {
             .main-content { padding: 10px; margin-top: 60px; }
@@ -125,6 +135,9 @@
             .quick-access-container { gap: 15px; }
             .quick-btn { width: 100%; height: 100px; flex-direction: row; }
             .quick-btn i { margin-bottom: 0; margin-left: 10px; font-size: 25px; }
+            .social-links { flex-direction: column; align-items: center; width: 100%; }
+            .social-icon { width: 100%; flex-direction: row; justify-content: center; gap: 10px; min-width: auto; }
+            .social-icon i { margin-bottom: 0; }
         }
         @media (max-width: 480px) {
             h1 { font-size: 20px; }
@@ -177,7 +190,7 @@
             </div>
         </section>
 
-        <!-- TIPS (Moved here directly after Home) -->
+        <!-- TIPS -->
         <section id="tips">
             <h1>🏆 النصائح الذهبية</h1>
             <p style="text-align:center; color:#aaa;">الرياضة أسلوب حياة، وهذي القواعد اللي لازم تعيش فيها عشان توصل لهدفك وتستمتع</p>
@@ -477,6 +490,22 @@
             </div>
             <div style="margin-top: 60px; border-top: 1px solid #333; padding-top: 20px; color: #555; font-size: 14px;">FitZone &copy; 26</div>
         </section>
+
+        <!-- SOCIAL CONTACT FOOTER -->
+        <div class="social-footer">
+            <h3>تواصل معنا أو عطنا اقتراحاتك لتغيير الموقع إلى الأفضل</h3>
+            <div class="social-links">
+                <a href="https://www.tiktok.com/@fitzone_sa?_r=1&_t=ZS-97IAFkGgM" target="_blank" class="social-icon">
+                    <i class="fab fa-tiktok"></i>
+                    <span>@fitzone_sa</span>
+                </a>
+                <a href="https://www.instagram.com/fitzone_sa?igsh=MTgxZ2N4bHl3d3RkYg%3D%3D&utm_source=qr" target="_blank" class="social-icon">
+                    <i class="fab fa-instagram"></i>
+                    <span>@fitzone_sa</span>
+                </a>
+            </div>
+        </div>
+
     </div>
 
     <script>
