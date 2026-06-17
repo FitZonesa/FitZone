@@ -7,824 +7,814 @@
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        :root {
-            --bg-color: #0a0a0a;
-            --main-bg: #141414;
-            --card-bg: #1e1e1e;
-            --gold: #D4AF37;
-            --red: #E53935;
-            --text: #e0e0e0;
-        }
-        body {
-            font-family: 'Cairo', sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text);
-            margin: 0;
-            padding: 0;
-            line-height: 1.6;
-        }
-        .progress-container {
-            width: 100%; height: 5px; background: #333;
-            position: fixed; top: 0; right: 0; z-index: 1001;
-        }
-        .progress-bar {
-            height: 5px; background: linear-gradient(90deg, var(--red), var(--gold)); width: 0%;
-        }
-        .header {
-            position: fixed; top: 5px; right: 0; width: 100%; height: 60px;
-            background: rgba(20, 20, 20, 0.95); backdrop-filter: blur(10px);
-            display: flex; align-items: center; justify-content: space-between;
-            padding: 0 20px; box-sizing: border-box; z-index: 1000; border-bottom: 1px solid #333;
-        }
-        .header .logo { font-size: 24px; font-weight: 900; color: var(--gold); }
-        .header .icons i { font-size: 20px; color: var(--text); cursor: pointer; margin-right: 15px; }
-        .search-box {
-            position: fixed; top: 65px; right: 20px; width: 300px; background: var(--card-bg);
-            padding: 15px; border-radius: 10px; border: 1px solid var(--gold);
-            display: none; z-index: 1000; box-shadow: 0 10px 20px rgba(0,0,0,0.5);
-        }
-        .search-box input {
-            width: 100%; padding: 10px; background: var(--bg-color);
-            border: 1px solid #444; color: white; border-radius: 5px; font-family: 'Cairo'; font-size: 16px;
-        }
-        .sidenav {
-            height: 100%; width: 0; position: fixed; top: 0; right: 0;
-            background-color: #111; overflow-x: hidden; transition: 0.5s;
-            padding-top: 70px; z-index: 999; border-left: 2px solid var(--gold);
-        }
-        .sidenav a {
-            padding: 15px 25px; text-decoration: none; font-size: 16px; color: #bbb;
-            display: block; transition: 0.3s; border-bottom: 1px solid #222;
-        }
-        .sidenav a:hover { color: var(--gold); background: #1a1a1a; }
-        .main-content { margin-top: 70px; padding: 20px; max-width: 900px; margin-left: auto; margin-right: auto; }
-        section {
-            background: var(--main-bg); padding: 30px; border-radius: 15px;
-            margin-bottom: 30px; border-top: 4px solid var(--gold); box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-        }
-        h1 { font-size: 32px; font-weight: 900; color: var(--gold); text-align: center; margin-bottom: 20px; }
-        h2 { font-size: 24px; font-weight: 700; color: var(--red); margin-top: 20px; border-right: 5px solid var(--gold); padding-right: 15px; }
-        p { font-size: 16px; color: var(--text); }
-        strong { color: #fff; }
-        .exercise-card {
-            border: 1px solid #333; border-radius: 12px; margin-bottom: 20px;
-            background: var(--card-bg); overflow: hidden; transition: transform 0.2s;
-        }
-        .exercise-card:hover { transform: translateY(-3px); border-color: var(--gold); }
-        .card-img {
-            width: 100%; height: 200px; object-fit: cover; border-bottom: 2px solid var(--red);
-            cursor: pointer; display: block;
-        }
-        .card-body { padding: 15px; }
-        .exercise-name { font-size: 20px; font-weight: 700; color: var(--gold); margin: 0 0 5px 0; }
-        .target { color: var(--red); font-weight: 600; font-size: 14px; display: block; margin-bottom: 10px; }
-        .youtube-link {
-            display: inline-block; background-color: var(--red); color: white; padding: 8px 15px;
-            text-decoration: none; border-radius: 50px; font-weight: 600; font-size: 14px;
-        }
-        table { width: 100%; border-collapse: collapse; margin-top: 15px; background: var(--card-bg); font-size: 14px; }
-        th, td { border: 1px solid #333; padding: 10px; text-align: center; }
-        th { background-color: var(--red); color: white; font-weight: 700; }
-        td { background-color: var(--main-bg); color: #fff; }
-        .table-link { color: var(--gold); text-decoration: none; font-weight: 700; }
-        .table-link:hover { text-decoration: underline; }
+        :root { --bg-color: #050505; --main-bg: #0a0a0a; --card-bg: rgba(20, 20, 20, 0.6); --glass-border: rgba(255, 255, 255, 0.1); --blue: #00d4ff; --dark-blue: #0088aa; --red: #E53935; --green: #00e676; --text: #e0e0e0; }
+        body { font-family: 'Cairo', sans-serif; background-color: var(--bg-color); color: var(--text); margin: 0; padding: 0; line-height: 1.6; overflow-x: hidden; }
+        .progress-container { width: 100%; height: 5px; background: #111; position: fixed; top: 0; right: 0; z-index: 1001; }
+        .progress-bar { height: 5px; background: linear-gradient(90deg, var(--blue), var(--dark-blue)); width: 0%; box-shadow: 0 0 10px var(--blue); }
+        .header { position: fixed; top: 5px; right: 0; width: 100%; height: 60px; background: rgba(10, 10, 10, 0.85); backdrop-filter: blur(12px); display: flex; align-items: center; justify-content: space-between; padding: 0 20px; box-sizing: border-box; z-index: 1000; border-bottom: 1px solid var(--glass-border); }
+        .header .logo { font-size: 24px; font-weight: 900; color: var(--blue); text-shadow: 0 0 10px rgba(0,212,255,0.5); }
+        .header .icons i { font-size: 20px; color: var(--text); cursor: pointer; margin-right: 15px; transition: color 0.3s; }
+        .sidenav { height: 100%; width: 0; position: fixed; top: 0; right: 0; background-color: rgba(5,5,5,0.95); backdrop-filter: blur(15px); overflow-x: hidden; transition: 0.5s; padding-top: 70px; z-index: 999; border-left: 2px solid var(--blue); }
+        .sidenav a { padding: 15px 25px; text-decoration: none; font-size: 16px; color: #bbb; display: block; transition: 0.3s; border-bottom: 1px solid #1a1a1a; }
+        .sidenav a:hover { color: var(--blue); background: rgba(0,212,255,0.1); }
+        .main-content { margin-top: 70px; padding: 20px; max-width: 1000px; margin-left: auto; margin-right: auto; }
+        section { background: var(--card-bg); padding: 30px; border-radius: 20px; margin-bottom: 30px; border: 1px solid var(--glass-border); backdrop-filter: blur(10px); box-shadow: 0 10px 30px rgba(0,0,0,0.5); animation: fadeInUp 0.6s ease-out forwards; }
+        h1 { font-size: 32px; font-weight: 900; color: var(--blue); text-align: center; margin-bottom: 20px; text-shadow: 0 0 15px rgba(0,212,255,0.3); }
+        h2 { font-size: 24px; font-weight: 700; color: #fff; margin-top: 20px; border-right: 5px solid var(--blue); padding-right: 15px; }
+        p { font-size: 16px; color: var(--text); } strong { color: #fff; }
+        .warning-box { background: rgba(229, 57, 53, 0.15); border: 1px solid var(--red); padding: 15px; border-radius: 10px; text-align: center; margin-bottom: 25px; color: #ffcccc; font-size: 15px; font-weight: 700; }
+        .glass-card { background: rgba(255, 255, 255, 0.03); border: 1px solid var(--glass-border); border-radius: 15px; padding: 20px; margin-bottom: 15px; transition: transform 0.3s, box-shadow 0.3s; }
+        .glass-card:hover { transform: translateY(-3px); box-shadow: 0 5px 20px rgba(0,212,255,0.2); }
+        .day-header { background: linear-gradient(90deg, rgba(0,212,255,0.2), rgba(0,0,0,0)); border: 1px solid var(--glass-border); padding: 15px 20px; border-radius: 12px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+        .day-header h3 { margin: 0; color: var(--blue); font-size: 18px; }
+        .day-header i { color: #fff; transition: transform 0.3s; }
+        .day-content { display: none; padding-top: 10px; }
+        .day-header.active i { transform: rotate(180deg); }
+        .exercise-row { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; background: rgba(0,0,0,0.3); border: 1px solid #222; padding: 12px; border-radius: 10px; margin-bottom: 8px; }
+        .ex-name { font-weight: 700; color: #fff; font-size: 15px; width: 100%; margin-bottom: 5px; }
+        .ex-name span { color: var(--blue); font-size: 13px; font-weight: 400; }
+        .ex-details { display: flex; gap: 10px; width: 100%; align-items: center; justify-content: space-between; }
+        .ex-sets { color: #aaa; font-size: 13px; }
+        .ex-btn { background: var(--blue); color: #000; padding: 5px 12px; border-radius: 20px; text-decoration: none; font-size: 12px; font-weight: 700; transition: 0.3s; white-space: nowrap; }
+        .rest-day { background: rgba(255,255,255,0.05); color: #888; text-align: center; padding: 20px; border-radius: 10px; font-weight: 700; font-size: 18px; border: 1px dashed #444; }
+        .tracker-input { width: 100%; background: rgba(0,0,0,0.8); border: 1px solid #444; color: #fff; text-align: center; padding: 10px 5px; border-radius: 8px; font-family: 'Cairo'; font-size: 14px; box-sizing: border-box; }
+        .tracker-input:focus { outline: none; border-color: var(--blue); }
+        table { width: 100%; border-collapse: collapse; margin-top: 15px; font-size: 14px; }
+        th, td { border: 1px solid #222; padding: 8px 5px; text-align: center; }
+        th { background-color: rgba(0,212,255,0.2); color: var(--blue); font-weight: 700; }
+        td { background-color: rgba(0,0,0,0.3); color: #fff; }
+        #myBtn { display: none; position: fixed; bottom: 30px; left: 30px; z-index: 99; font-size: 18px; border: none; outline: none; background-color: var(--blue); color: #000; cursor: pointer; padding: 15px; border-radius: 50%; }
         
-        .tracker-input, .calc-input {
-            width: 100%; background: var(--main-bg); border: 1px solid #444; color: #fff;
-            text-align: center; padding: 8px; border-radius: 5px; font-family: 'Cairo'; font-size: 14px;
-            box-sizing: border-box;
-        }
-        .tracker-input:focus, .calc-input:focus { outline: none; border-color: var(--gold); }
-        
-        .calc-btn {
-            width: 100%; margin-top: 15px; padding: 12px; background: var(--gold); color: #000; 
-            font-family: 'Cairo'; font-weight: 700; font-size: 16px; border: none; border-radius: 8px; cursor: pointer;
-        }
-        .calc-btn:hover { background: #e6c349; }
+        /* Quick Access Buttons */
+        .quick-access-container { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-top: 40px; padding: 0 20px; }
+        .quick-btn { display: flex; flex-direction: column; align-items: center; justify-content: center; width: 160px; height: 140px; background: linear-gradient(145deg, rgba(20,20,20,0.9), rgba(10,10,10,0.95)); border: 2px solid var(--blue); color: #fff; text-decoration: none; border-radius: 20px; transition: all 0.3s ease; box-shadow: 0 10px 20px rgba(0,0,0,0.5); }
+        .quick-btn i { font-size: 35px; color: var(--blue); margin-bottom: 10px; }
+        .quick-btn span { font-size: 16px; font-weight: 800; }
+        .quick-btn:hover { transform: translateY(-5px); background: var(--blue); border-color: #fff; box-shadow: 0 0 25px rgba(0,212,255,0.6); }
+        .quick-btn:hover i, .quick-btn:hover span { color: #000; }
 
-        #myBtn {
-            display: none; position: fixed; bottom: 30px; left: 30px; z-index: 99;
-            font-size: 18px; border: none; outline: none; background-color: var(--gold);
-            color: #000; cursor: pointer; padding: 15px; border-radius: 50%;
-            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.4);
+        /* Tabs Style */
+        .macro-tabs, .meal-tabs { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 20px; justify-content: center; }
+        .macro-tab, .meal-tab { background: rgba(0,0,0,0.5); border: 1px solid #333; color: #fff; padding: 8px 15px; border-radius: 30px; cursor: pointer; font-family: 'Cairo'; font-weight: 700; font-size: 14px; transition: 0.3s; }
+        .macro-tab:hover, .meal-tab:hover { border-color: var(--blue); color: var(--blue); }
+        .macro-tab.active, .meal-tab.active { background: var(--blue); color: #000; border-color: var(--blue); box-shadow: 0 0 15px rgba(0,212,255,0.5); }
+
+        /* Food Grid (Macros) */
+        .food-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 15px; margin-top: 20px; }
+        .food-card { background: rgba(0,0,0,0.4); border: 1px solid #222; border-radius: 12px; padding: 15px; text-align: center; transition: 0.3s; }
+        .food-card:hover { transform: translateY(-5px); border-color: var(--blue); box-shadow: 0 5px 15px rgba(0,212,255,0.2); }
+        .food-emoji { font-size: 40px; margin-bottom: 10px; }
+        .food-title { font-weight: 700; color: #fff; margin-bottom: 5px; }
+        .food-title span { color: var(--blue); font-size: 13px; display: block; }
+        .food-cal { color: var(--red); font-size: 14px; font-weight: 700; }
+        .food-macros { color: #aaa; font-size: 12px; margin-top: 5px; }
+
+        /* Meals Section Styles */
+        .meals-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
+        .meal-card { background: rgba(255,255,255,0.05); border: 1px solid #333; border-radius: 15px; padding: 20px; position: relative; overflow: hidden; display: flex; flex-direction: column; }
+        .meal-card h3 { color: var(--blue); margin-top: 0; border-bottom: 1px solid #333; padding-bottom: 10px; font-size: 18px; }
+        .meal-section-title { font-size: 14px; color: #888; margin-bottom: 5px; display: block; text-transform: uppercase; letter-spacing: 1px; }
+        .ingredient-list, .prep-list { list-style: none; padding: 0; margin: 0 0 15px 0; font-size: 14px; color: #ccc; }
+        .ingredient-list li, .prep-list li { margin-bottom: 5px; position: relative; padding-right: 15px; }
+        .ingredient-list li::before { content: "•"; color: var(--green); position: absolute; right: 0; font-weight: bold; }
+        .benefit-box { margin-top: auto; background: rgba(0, 230, 118, 0.1); padding: 10px; border-radius: 8px; border-right: 3px solid var(--green); }
+        .benefit-box strong { color: var(--green); display: block; font-size: 13px; margin-bottom: 3px; }
+        .benefit-box p { margin: 0; font-size: 13px; }
+        
+        /* Compact List for simple items (Snacks, Drinks Ideas) */
+        .compact-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; }
+        .compact-item { background: #222; padding: 10px; border-radius: 8px; text-align: center; color: #fff; font-weight: 600; border: 1px solid transparent; transition: 0.2s; }
+        .compact-item:hover { border-color: var(--blue); background: #2a2a2a; }
+
+        /* Disclaimer Box */
+        .disclaimer-box { background: rgba(255, 193, 7, 0.1); border: 1px solid rgba(255, 193, 7, 0.4); padding: 20px; border-radius: 12px; margin-top: 20px; font-size: 14px; color: #e0e0e0; line-height: 1.8; }
+        .disclaimer-box h4 { color: #ffc107; margin-top: 0; }
+
+        /* Tips Grid */
+        .tip-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 15px; }
+        .tip-box { background: rgba(0,0,0,0.4); border: 1px solid #222; border-radius: 12px; padding: 20px; transition: 0.3s; border-top: 3px solid var(--blue); }
+        .tip-box:hover { border-color: var(--blue); box-shadow: 0 5px 15px rgba(0,212,255,0.1); }
+        .tip-box ul { padding-right: 20px; margin: 5px 0; }
+        .tip-box li { margin-bottom: 8px; font-size: 14px; line-height: 1.5; color: #ccc; }
+        .home-section, .conclusion-section { text-align: center; padding: 60px 20px; background: radial-gradient(circle at center, #001a22 0%, var(--bg-color) 70%); border-top: none; }
+        .brand-home { font-size: 80px; font-weight: 900; background: linear-gradient(to right, var(--blue), #FFF, var(--blue)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 20px; }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Responsive Design for Mobile */
+        @media (max-width: 768px) {
+            .main-content { padding: 10px; margin-top: 60px; }
+            section { padding: 15px; border-radius: 15px; margin-bottom: 20px; }
+            h1 { font-size: 24px; }
+            h2 { font-size: 18px; }
+            .header { height: 50px; padding: 0 10px; }
+            .header .logo { font-size: 20px; }
+            .brand-home { font-size: 50px; }
+            .home-section, .conclusion-section { padding: 40px 15px; }
+            .tip-grid { grid-template-columns: 1fr; }
+            .food-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 10px; }
+            .food-emoji { font-size: 30px; }
+            .food-title { font-size: 14px; }
+            .food-cal { font-size: 12px; }
+            .food-macros { font-size: 10px; }
+            .day-header h3 { font-size: 15px; }
+            .ex-details { flex-direction: column; align-items: flex-start; gap: 5px; }
+            .ex-btn { margin-top: 5px; }
+            .warning-box { font-size: 13px; padding: 10px; }
+            .sidenav a { font-size: 14px; padding: 12px 20px; }
+            .meals-grid { grid-template-columns: 1fr; }
+            .quick-access-container { gap: 15px; }
+            .quick-btn { width: 100%; height: 100px; flex-direction: row; }
+            .quick-btn i { margin-bottom: 0; margin-left: 10px; font-size: 25px; }
         }
-        @media print {
-            .sidenav, .header, .progress-container, #myBtn, .search-box, .no-print, .calc-btn { display: none !important; }
-            .main-content { margin-top: 0; padding: 0; }
-            section { box-shadow: none; border-radius: 0; page-break-inside: avoid; }
-            body { background: #fff; color: #000; }
-            section { background: #fff; border-top: 2px solid #000; }
-            h1, h2 { color: #000; border-color: #000; }
-            .exercise-name, .table-link { color: #000; }
-            .target { color: #555; }
-            th { background-color: #ddd; color: #000; }
-            td { background-color: #fff; color: #000; border-color: #ccc; }
-            .calc-input { border: 1px solid #ccc; color: #000; }
-            .tracker-input { border: 1px solid #ccc; color: #000; }
+        @media (max-width: 480px) {
+            h1 { font-size: 20px; }
+            .brand-home { font-size: 40px; }
+            .food-grid { grid-template-columns: 1fr 1fr; }
+            .tip-box ul { padding-right: 15px; }
+            .tip-box li { font-size: 13px; }
+            .meal-tabs { flex-wrap: nowrap; overflow-x: auto; justify-content: flex-start; padding-bottom: 5px; }
+            .meal-tab { white-space: nowrap; font-size: 12px; }
         }
-        .home-section {
-            text-align: center; padding: 100px 20px;
-            background: radial-gradient(circle at center, #2a0505 0%, var(--bg-color) 70%); border-top: none;
-        }
-        .brand-home { font-size: 80px; font-weight: 900; background: linear-gradient(to right, var(--gold), #FFF, var(--gold)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 20px; }
-        .tagline { font-size: 24px; color: var(--red); font-weight: 700; }
     </style>
 </head>
 <body>
-
-    <div class="progress-container no-print"><div class="progress-bar" id="myBar"></div></div>
-
-    <div class="header no-print">
-        <div class="logo">FitZone</div>
-        <div class="icons">
-            <i class="fas fa-search" onclick="toggleSearch()"></i>
-            <i class="fas fa-bars" onclick="toggleNav()"></i>
-        </div>
-    </div>
-
-    <div id="searchBox" class="search-box no-print">
-        <input type="text" id="searchInput" placeholder="ابحث عن تمرين يا وحش..." onkeyup="searchContent()">
-    </div>
-
-    <div id="mySidenav" class="sidenav no-print">
+    <div class="progress-container"><div class="progress-bar" id="myBar"></div></div>
+    <div class="header"><div class="logo">FitZone</div><div class="icons"><i class="fas fa-bars" onclick="toggleNav()"></i></div></div>
+    <div id="mySidenav" class="sidenav">
         <a href="#home" onclick="closeNav()">🏠 الرئيسية</a>
-        <a href="#chest" onclick="closeNav()">💪 الصدر</a>
-        <a href="#back" onclick="closeNav()">🦍 الظهر</a>
-        <a href="#shoulders" onclick="closeNav()">🔶 الكتف والترابيس</a>
-        <a href="#arms" onclick="closeNav()">🔫 الباي والتراي</a>
-        <a href="#legs" onclick="closeNav()">🦵 الأرجل</a>
-        <a href="#innerouter" onclick="closeNav()">🧲 الفخذ الداخلي والجانبي</a>
-        <a href="#core" onclick="closeNav()">🧘 الكور والبطن</a>
-        <a href="#programs" onclick="closeNav()">📋 جداول التمارين (مع فيديو)</a>
-        <a href="#calisthenics" onclick="closeNav()">🏠 تمارين البيت (كاليستنكس)</a>
-        <a href="#nutrition" onclick="closeNav()">🥩 الأكل وحاسبة السعرات</a>
-        <a href="#tracker" onclick="closeNav()">📊 جدول المتابعة</a>
+        <a href="#tips" onclick="closeNav()">🏆 النصائح الذهبية</a>
+        <a href="#programs" onclick="closeNav()">📋 جداول التمارين</a>
+        <a href="#muscles" onclick="closeNav()">💪 تمارين حسب العضلة</a>
+        <a href="#meals" onclick="closeNav()">🥗 الوجبات الصحية</a>
+        <a href="#nutrition" onclick="closeNav()">🍽️ التغذية حسب الماكرو</a>
+        <a href="#weeklyTracker" onclick="closeNav()">📊 الجدول الأسبوعي</a>
+        <a href="#conclusion" onclick="closeNav()">🏁 الخاتمة</a>
     </div>
-
-    <button onclick="topFunction()" id="myBtn" title="يرجعك للأعلى" class="no-print"><i class="fas fa-arrow-up"></i></button>
+    <button onclick="topFunction()" id="myBtn"><i class="fas fa-arrow-up"></i></button>
 
     <div class="main-content">
-
+        <!-- HOME / INTRO -->
         <section id="home" class="home-section">
             <div class="brand-home">FitZone</div>
-            <div class="tagline">يا هلا ومرحبا بك يا وحش!</div>
-            <p style="margin-top: 30px; color: #888;">افتح القائمة الجانبية ☰ وابدأ جولتك<br>اضغط على أي صورة أو اسم تمرين يشوفك الفيديو</p>
-        </section>
-
-        <section id="chest">
-            <h1>عضلة الصدر (Chest)</h1>
-            <div class="exercise-card">
-                <a href="https://www.youtube.com/watch?v=rT7MbrCDE3E" target="_blank"><img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?auto=format&fit=crop&w=800&q=80" alt="بنش برس" class="card-img"></a>
-                <div class="card-body">
-                    <h3 class="exercise-name">1. ضغط بالبار مستلقياً (Flat Bench Press)</h3>
-                    <span class="target">الاستهداف: الصدر الأوسط (الكتلة الكبرى)</span>
-                    <p><strong>4 مجموعات × 8-10 تكرارات</strong></p>
-                    <a href="https://www.youtube.com/watch?v=rT7MbrCDE3E" target="_blank" class="youtube-link"><i class="fab fa-youtube"></i> شوف الفيديو</a>
-                </div>
-            </div>
-            <div class="exercise-card">
-                <a href="https://www.youtube.com/watch?v=IZN6JBbJ8GQ" target="_blank"><img src="https://images.unsplash.com/photo-1532029837206-abbe2b7620e3?auto=format&fit=crop&w=800&q=80" alt="إنكلين" class="card-img"></a>
-                <div class="card-body">
-                    <h3 class="exercise-name">2. ضغط دامبل على بنك مائل (Incline Dumbbell Press)</h3>
-                    <span class="target">الاستهداف: الصدر العلوي</span>
-                    <p><strong>4 مجموعات × 10-12 تكرار</strong></p>
-                    <a href="https://www.youtube.com/watch?v=IZN6JBbJ8GQ" target="_blank" class="youtube-link"><i class="fab fa-youtube"></i> شوف الفيديو</a>
-                </div>
-            </div>
-            <div class="exercise-card">
-                <a href="https://www.youtube.com/watch?v=7FmlLWyIfHs" target="_blank"><img src="https://images.unsplash.com/photo-1526506118085-60ce8714f8c5?auto=format&fit=crop&w=800&q=80" alt="كروس" class="card-img"></a>
-                <div class="card-body">
-                    <h3 class="exercise-name">3. تقاطع بالكيبل (Cable Crossover)</h3>
-                    <span class="target">الاستهداف: الصدر الداخلي</span>
-                    <p><strong>3 مجموعات × 12-15 تكرار</strong></p>
-                    <a href="https://www.youtube.com/watch?v=7FmlLWyIfHs" target="_blank" class="youtube-link"><i class="fab fa-youtube"></i> شوف الفيديو</a>
-                </div>
-            </div>
-        </section>
-
-        <section id="back">
-            <h1>عضلة الظهر (Back)</h1>
-            <div class="exercise-card">
-                <a href="https://www.youtube.com/watch?v=v4S5X9qCiEc" target="_blank"><img src="https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?auto=format&fit=crop&w=800&q=80" alt="ديدليفت" class="card-img"></a>
-                <div class="card-body">
-                    <h3 class="exercise-name">1. ديدليفت (Deadlift)</h3>
-                    <span class="target">الاستهداف: الظهر السفلي والكامل</span>
-                    <p><strong>4 مجموعات × 5-8 تكرارات</strong></p>
-                    <a href="https://www.youtube.com/watch?v=v4S5X9qCiEc" target="_blank" class="youtube-link"><i class="fab fa-youtube"></i> شوف الفيديو</a>
-                </div>
-            </div>
-            <div class="exercise-card">
-                <a href="https://www.youtube.com/watch?v=3mJ6gFL5VXQ" target="_blank"><img src="https://images.unsplash.com/photo-1603287681836-b174ce5074c2?auto=format&fit=crop&w=800&q=80" alt="جذب" class="card-img"></a>
-                <div class="card-body">
-                    <h3 class="exercise-name">2. جذب بالكيبل من أمام (Lat Pulldown)</h3>
-                    <span class="target">الاستهداف: الظهر العريض (اللات)</span>
-                    <p><strong>4 مجموعات × 10-12 تكرار</strong></p>
-                    <a href="https://www.youtube.com/watch?v=3mJ6gFL5VXQ" target="_blank" class="youtube-link"><i class="fab fa-youtube"></i> شوف الفيديو</a>
-                </div>
-            </div>
-            <div class="exercise-card">
-                <div class="card-body">
-                    <h3 class="exercise-name">3. تجديف بالبار مائلاً (Barbell Row)</h3>
-                    <span class="target">الاستهداف: سمك الظهر العلوي</span>
-                    <p><strong>4 مجموعات × 8-10 تكرارات</strong></p>
-                    <a href="https://www.youtube.com/watch?v=9efgcAjQe7E" target="_blank" class="youtube-link"><i class="fab fa-youtube"></i> شوف الفيديو</a>
-                </div>
-            </div>
-        </section>
-
-        <section id="shoulders">
-            <h1>الكتف والترابيس (Shoulders & Traps)</h1>
-            <div class="exercise-card">
-                <a href="https://www.youtube.com/watch?v=qEwKCR5JCog" target="_blank"><img src="https://images.unsplash.com/photo-1534368959876-26bf04f2c947?auto=format&fit=crop&w=800&q=80" alt="كتف" class="card-img"></a>
-                <div class="card-body">
-                    <h3 class="exercise-name">1. ضغط كتف بالدامبل جالساً (Seated Dumbbell Press)</h3>
-                    <span class="target">الاستهداف: الكتف الأمامي والجانبي</span>
-                    <p><strong>4 مجموعات × 8-10 تكرارات</strong></p>
-                    <a href="https://www.youtube.com/watch?v=qEwKCR5JCog" target="_blank" class="youtube-link"><i class="fab fa-youtube"></i> شوف الفيديو</a>
-                </div>
-            </div>
-            <div class="exercise-card">
-                <div class="card-body">
-                    <h3 class="exercise-name">2. رفع جانبي بالدامبل (Lateral Raises)</h3>
-                    <span class="target">الاستهداف: الكتف الجانبي (العرض)</span>
-                    <p><strong>4 مجموعات × 12-15 تكرار</strong></p>
-                    <a href="https://www.youtube.com/watch?v=3Vc0tS9sR0s" target="_blank" class="youtube-link"><i class="fab fa-youtube"></i> شوف الفيديو</a>
-                </div>
-            </div>
-            <div class="exercise-card">
-                <a href="https://www.youtube.com/watch?v=cT7QuHlzO0Y" target="_blank"><img src="https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?auto=format&fit=crop&w=800&q=80" alt="ترابيس" class="card-img"></a>
-                <div class="card-body">
-                    <h3 class="exercise-name">3. ترابيس بالدامبل (Dumbbell Shrugs)</h3>
-                    <span class="target">الاستهداف: الترابيس</span>
-                    <p><strong>4 مجموعات × 12-15 تكرار</strong></p>
-                    <a href="https://www.youtube.com/watch?v=cT7QuHlzO0Y" target="_blank" class="youtube-link"><i class="fab fa-youtube"></i> شوف الفيديو</a>
-                </div>
-            </div>
-        </section>
-
-        <section id="arms">
-            <h1>الباي والتراي (Biceps & Triceps)</h1>
-            <div class="exercise-card">
-                <a href="https://www.youtube.com/watch?v=kmuEz2QZ5Rk" target="_blank"><img src="https://images.unsplash.com/photo-1584466977773-e625c37cdd50?auto=format&fit=crop&w=800&q=80" alt="باي" class="card-img"></a>
-                <div class="card-body">
-                    <h3 class="exercise-name">1. ثني ذراع بالبار واقفاً (Barbell Curl)</h3>
-                    <span class="target">الاستهداف: رأس الباي</span>
-                    <p><strong>4 مجموعات × 8-10 تكرارات</strong></p>
-                    <a href="https://www.youtube.com/watch?v=kmuEz2QZ5Rk" target="_blank" class="youtube-link"><i class="fab fa-youtube"></i> شوف الفيديو</a>
-                </div>
-            </div>
-            <div class="exercise-card">
-                <a href="https://www.youtube.com/watch?v=2HbBZ0TN8gI" target="_blank"><img src="https://images.unsplash.com/photo-1532029837206-abbe2b7620e3?auto=format&fit=crop&w=800&q=80" alt="تراي كيبل" class="card-img"></a>
-                <div class="card-body">
-                    <h3 class="exercise-name">2. بسط ذراع بالكيبل والحبل (Rope Pushdown)</h3>
-                    <span class="target">الاستهداف: الرأس الطويل للتراي</span>
-                    <p><strong>4 مجموعات × 10-12 تكرار</strong></p>
-                    <a href="https://www.youtube.com/watch?v=2HbBZ0TN8gI" target="_blank" class="youtube-link"><i class="fab fa-youtube"></i> شوف الفيديو</a>
-                </div>
-            </div>
-            <div class="exercise-card">
-                <div class="card-body">
-                    <h3 class="exercise-name">3. ثني ذراع بمطرقة (Hammer Curls)</h3>
-                    <span class="target">الاستهداف: البريكيبسيس والساعد</span>
-                    <p><strong>3 مجموعات × 10-12 تكرار</strong></p>
-                    <a href="https://www.youtube.com/watch?v=TwD-YGVP4Bk" target="_blank" class="youtube-link"><i class="fab fa-youtube"></i> شوف الفيديو</a>
-                </div>
-            </div>
-            <div class="exercise-card">
-                <div class="card-body">
-                    <h3 class="exercise-name">4. بسط ذراع بالبار مستلقياً (Skull Crushers)</h3>
-                    <span class="target">الاستهداف: الكتلة الكبرى للتراي</span>
-                    <p><strong>3 مجموعات × 10-12 تكرار</strong></p>
-                    <a href="https://www.youtube.com/watch?v=d_KZxkY_0cM" target="_blank" class="youtube-link"><i class="fab fa-youtube"></i> شوف الفيديو</a>
-                </div>
-            </div>
-        </section>
-
-        <section id="legs">
-            <h1>الأرجل (Legs)</h1>
-            <div class="exercise-card">
-                <a href="https://www.youtube.com/watch?v=gsNoPYwWXeM" target="_blank"><img src="https://images.unsplash.com/photo-1574680096145-d05b474e2155?auto=format&fit=crop&w=800&q=80" alt="سكوات" class="card-img"></a>
-                <div class="card-body">
-                    <h3 class="exercise-name">1. سكوات بالبار (Barbell Squat)</h3>
-                    <span class="target">الاستهداف: الفخذ الأمامي والمؤخرة</span>
-                    <p><strong>4 مجموعات × 8-10 تكرارات</strong></p>
-                    <a href="https://www.youtube.com/watch?v=gsNoPYwWXeM" target="_blank" class="youtube-link"><i class="fab fa-youtube"></i> شوف الفيديو</a>
-                </div>
-            </div>
-            <div class="exercise-card">
-                <a href="https://www.youtube.com/watch?v=jEy_czb3RKA" target="_blank"><img src="https://images.unsplash.com/photo-1534367610401-9f5ed68180aa?auto=format&fit=crop&w=800&q=80" alt="ديدليفت روماني" class="card-img"></a>
-                <div class="card-body">
-                    <h3 class="exercise-name">2. ديدليفت روماني (Romanian Deadlift - RDL)</h3>
-                    <span class="target">الاستهداف: الفخذ الخلفي والمؤخرة</span>
-                    <p><strong>4 مجموعات × 8-10 تكرارات</strong></p>
-                    <a href="https://www.youtube.com/watch?v=jEy_czb3RKA" target="_blank" class="youtube-link"><i class="fab fa-youtube"></i> شوف الفيديو</a>
-                </div>
-            </div>
-            <div class="exercise-card">
-                <a href="https://www.youtube.com/watch?v=W1qj7J3PPQM" target="_blank"><img src="https://images.unsplash.com/photo-1599058917212-d750089bc07e?auto=format&fit=crop&w=800&q=80" alt="سمانة" class="card-img"></a>
-                <div class="card-body">
-                    <h3 class="exercise-name">3. رفع سمانة واقفاً (Standing Calf Raise)</h3>
-                    <span class="target">الاستهداف: السمانة الخارجية</span>
-                    <p><strong>4 مجموعات × 15-20 تكرار</strong></p>
-                    <a href="https://www.youtube.com/watch?v=W1qj7J3PPQM" target="_blank" class="youtube-link"><i class="fab fa-youtube"></i> شوف الفيديو</a>
-                </div>
-            </div>
-            <div class="exercise-card">
-                <div class="card-body">
-                    <h3 class="exercise-name">4. طعنة بالدامبل / لانج (Dumbbell Lunges)</h3>
-                    <span class="target">الاستهداف: تفريغ الفخذ وتكوير المؤخرة</span>
-                    <p><strong>3 مجموعات × 10 تكرارات لكل رجل</strong></p>
-                    <a href="https://www.youtube.com/watch?v=D7KaRcUTQeE" target="_blank" class="youtube-link"><i class="fab fa-youtube"></i> شوف الفيديو</a>
-                </div>
-            </div>
-        </section>
-
-        <section id="innerouter">
-            <h1>الفخذ الداخلي والجانبي</h1>
-            <div class="exercise-card">
-                <div class="card-body">
-                    <h3 class="exercise-name">1. تقريب بالماكينة (Hip Adduction)</h3>
-                    <span class="target">الاستهداف: الفخذ الداخلي</span>
-                    <p><strong>4 مجموعات × 12-15 تكرار</strong></p>
-                    <a href="https://www.youtube.com/watch?v=a4V2b6MEpA4" target="_blank" class="youtube-link"><i class="fab fa-youtube"></i> شوف الفيديو</a>
-                </div>
-            </div>
-            <div class="exercise-card">
-                <div class="card-body">
-                    <h3 class="exercise-name">2. إبعاد بالماكينة (Hip Abduction)</h3>
-                    <span class="target">الاستهداف: الفخذ الجانبي</span>
-                    <p><strong>4 مجموعات × 12-15 تكرار</strong></p>
-                    <a href="https://www.youtube.com/watch?v=a4V2b6MEpA4" target="_blank" class="youtube-link"><i class="fab fa-youtube"></i> شوف الفيديو</a>
-                </div>
-            </div>
-        </section>
-
-        <section id="core">
-            <h1>الكور والبطن (Core & Abs)</h1>
-            <div class="exercise-card">
-                <div class="card-body">
-                    <h3 class="exercise-name">1. اللوح / بلانك (Plank)</h3>
-                    <span class="target">الاستهداف: الكور العميق والثبات</span>
-                    <p><strong>3 مجموعات × 60 ثانية</strong></p>
-                    <a href="https://www.youtube.com/watch?v=ASdvN_XEl_c" target="_blank" class="youtube-link"><i class="fab fa-youtube"></i> شوف الفيديو</a>
-                </div>
-            </div>
-            <div class="exercise-card">
-                <div class="card-body">
-                    <h3 class="exercise-name">2. قبض بطن بالكيبل (Cable Crunches)</h3>
-                    <span class="target">الاستهداف: البطن العلوي (الكتلة)</span>
-                    <p><strong>4 مجموعات × 12-15 تكرار</strong></p>
-                    <a href="https://www.youtube.com/watch?v=3MBhQYtC0Ig" target="_blank" class="youtube-link"><i class="fab fa-youtube"></i> شوف الفيديو</a>
-                </div>
-            </div>
-            <div class="exercise-card">
-                <div class="card-body">
-                    <h3 class="exercise-name">3. رفع رجلين معلقاً (Hanging Leg Raises)</h3>
-                    <span class="target">الاستهداف: البطن السفلي</span>
-                    <p><strong>3 مجموعات × 12-15 تكرار</strong></p>
-                    <a href="https://www.youtube.com/watch?v=YByOL8jT0Fc" target="_blank" class="youtube-link"><i class="fab fa-youtube"></i> شوف الفيديو</a>
-                </div>
-            </div>
-        </section>
-
-        <section id="programs">
-            <h1>جداول التمارين (اضغط على الاسم يشوفك الفيديو)</h1>
+            <div style="font-size: 24px; color: var(--blue); font-weight: 700; margin-bottom: 20px;">يا هلا ومرحبا بك يا وحش!</div>
             
-            <h2>جدول 3 أيام (Push / Pull / Legs)</h2>
-            <table>
-                <thead><tr><th>اليوم</th><th>التمرين (اضغط الاسم)</th><th>مجموعات × تكرارات</th></tr></thead>
-                <tbody>
-                    <tr><td rowspan="6">السبت<br>(Push)</td><td><a href="https://www.youtube.com/watch?v=rT7MbrCDE3E" target="_blank" class="table-link">ضغط بالبار مستلقياً (Bench Press)</a></td><td>4 × 8-10</td></tr>
-                    <tr><td><a href="https://www.youtube.com/watch?v=IZN6JBbJ8GQ" target="_blank" class="table-link">ضغط دامبل مائل (Incline DB Press)</a></td><td>3 × 10-12</td></tr>
-                    <tr><td><a href="https://www.youtube.com/watch?v=qEwKCR5JCog" target="_blank" class="table-link">ضغط كتف بالدامبل (Shoulder Press)</a></td><td>4 × 8-10</td></tr>
-                    <tr><td><a href="https://www.youtube.com/watch?v=3Vc0tS9sR0s" target="_blank" class="table-link">رفع جانبي بالدامبل (Lateral Raises)</a></td><td>3 × 12-15</td></tr>
-                    <tr><td><a href="https://www.youtube.com/watch?v=2HbBZ0TN8gI" target="_blank" class="table-link">بسط ذراع بالكيبل والحبل (Rope Pushdown)</a></td><td>3 × 10-12</td></tr>
-                    <tr><td><a href="https://www.youtube.com/watch?v=d_KZxkY_0cM" target="_blank" class="table-link">بسط ذراع مستلقي (Skull Crushers)</a></td><td>3 × 10-12</td></tr>
-                    
-                    <tr><td rowspan="6">الاثنين<br>(Pull)</td><td><a href="https://www.youtube.com/watch?v=v4S5X9qCiEc" target="_blank" class="table-link">ديدليفت (Deadlift)</a></td><td>4 × 5-8</td></tr>
-                    <tr><td><a href="https://www.youtube.com/watch?v=3mJ6gFL5VXQ" target="_blank" class="table-link">جذب بالكيبل (Lat Pulldown)</a></td><td>4 × 10-12</td></tr>
-                    <tr><td><a href="https://www.youtube.com/watch?v=9efgcAjQe7E" target="_blank" class="table-link">تجديف بالبار مائل (Barbell Row)</a></td><td>4 × 8-10</td></tr>
-                    <tr><td><a href="https://www.youtube.com/watch?v=7FmlLWyIfHs" target="_blank" class="table-link">فتح كتف خلفي (Reverse Pec Deck)</a></td><td>3 × 12-15</td></tr>
-                    <tr><td><a href="https://www.youtube.com/watch?v=kmuEz2QZ5Rk" target="_blank" class="table-link">ثني ذراع بالبار (Barbell Curl)</a></td><td>3 × 10-12</td></tr>
-                    <tr><td><a href="https://www.youtube.com/watch?v=TwD-YGVP4Bk" target="_blank" class="table-link">ثني ذراع بمطرقة (Hammer Curls)</a></td><td>3 × 10-12</td></tr>
+            <div class="warning-box" style="max-width: 600px; margin-left: auto; margin-right: auto;">⚠️ تنبيه: ما أحلل ولا أبيح لأي شخص ينشر أو يشارك الموقع أو الرابط.</div>
 
-                    <tr><td rowspan="6">الأربعاء<br>(Legs)</td><td><a href="https://www.youtube.com/watch?v=gsNoPYwWXeM" target="_blank" class="table-link">سكوات بالبار (Squat)</a></td><td>4 × 8-10</td></tr>
-                    <tr><td><a href="https://www.youtube.com/watch?v=IZN6JBbJ8GQ" target="_blank" class="table-link">ضغط رجل بالماكينة (Leg Press)</a></td><td>3 × 10-12</td></tr>
-                    <tr><td><a href="https://www.youtube.com/watch?v=jEy_czb3RKA" target="_blank" class="table-link">ديدليفت روماني (RDL)</a></td><td>4 × 8-10</td></tr>
-                    <tr><td><a href="https://www.youtube.com/watch?v=1oV-sEbba0M" target="_blank" class="table-link">ثني رجل نائماً (Lying Leg Curl)</a></td><td>3 × 10-12</td></tr>
-                    <tr><td><a href="https://www.youtube.com/watch?v=W1qj7J3PPQM" target="_blank" class="table-link">رفع سمانة واقف (Calf Raise)</a></td><td>4 × 15-20</td></tr>
-                    <tr><td><a href="https://www.youtube.com/watch?v=3MBhQYtC0Ig" target="_blank" class="table-link">قبض بطن بالكيبل (Cable Crunch)</a></td><td>3 × 15</td></tr>
-                </tbody>
-            </table>
-
-            <h2>جدول 4 أيام (Upper / Lower)</h2>
-            <table>
-                <thead><tr><th>اليوم</th><th>التمرين (اضغط الاسم)</th><th>مجموعات × تكرارات</th></tr></thead>
-                <tbody>
-                    <tr><td rowspan="6">السبت<br>علوي A</td><td><a href="https://www.youtube.com/watch?v=rT7MbrCDE3E" target="_blank" class="table-link">ضغط بالبار مستلقياً (Bench Press)</a></td><td>4 × 6-8</td></tr>
-                    <tr><td><a href="https://www.youtube.com/watch?v=9efgcAjQe7E" target="_blank" class="table-link">تجديف بالبار مائل (Barbell Row)</a></td><td>4 × 6-8</td></tr>
-                    <tr><td><a href="https://www.youtube.com/watch?v=qEwKCR5JCog" target="_blank" class="table-link">ضغط كتف بالدامبل (Shoulder Press)</a></td><td>3 × 8-10</td></tr>
-                    <tr><td><a href="https://www.youtube.com/watch?v=3mJ6gFL5VXQ" target="_blank" class="table-link">جذب بالكيبل (Lat Pulldown)</a></td><td>3 × 10-12</td></tr>
-                    <tr><td><a href="https://www.youtube.com/watch?v=kmuEz2QZ5Rk" target="_blank" class="table-link">ثني ذراع بالبار (Barbell Curl)</a></td><td>3 × 10-12</td></tr>
-                    <tr><td><a href="https://www.youtube.com/watch?v=2HbBZ0TN8gI" target="_blank" class="table-link">بسط ذراع بالكيبل والحبل (Rope Pushdown)</a></td><td>3 × 10-12</td></tr>
-
-                    <tr><td rowspan="5">الأحد<br>سفلي A</td><td><a href="https://www.youtube.com/watch?v=gsNoPYwWXeM" target="_blank" class="table-link">سكوات بالبار (Squat)</a></td><td>4 × 6-8</td></tr>
-                    <tr><td><a href="https://www.youtube.com/watch?v=jEy_czb3RKA" target="_blank" class="table-link">ديدليفت روماني (RDL)</a></td><td>4 × 8-10</td></tr>
-                    <tr><td><a href="https://www.youtube.com/watch?v=IZN6JBbJ8GQ" target="_blank" class="table-link">ضغط رجل بالماكينة (Leg Press)</a></td><td>3 × 10-12</td></tr>
-                    <tr><td><a href="https://www.youtube.com/watch?v=1oV-sEbba0M" target="_blank" class="table-link">ثني رجل نائماً (Lying Leg Curl)</a></td><td>3 × 10-12</td></tr>
-                    <tr><td><a href="https://www.youtube.com/watch?v=W1qj7J3PPQM" target="_blank" class="table-link">رفع سمانة واقف (Calf Raise)</a></td><td>4 × 15-20</td></tr>
-
-                    <tr><td rowspan="6">الثلاثاء<br>علوي B</td><td><a href="https://www.youtube.com/watch?v=IZN6JBbJ8GQ" target="_blank" class="table-link">ضغط دامبل مائل (Incline DB Press)</a></td><td>3 × 10-12</td></tr>
-                    <tr><td><a href="https://www.youtube.com/watch?v=3mJ6gFL5VXQ" target="_blank" class="table-link">تجديف كيبل جالس (Seated Cable Row)</a></td><td>3 × 10-12</td></tr>
-                    <tr><td><a href="https://www.youtube.com/watch?v=3Vc0tS9sR0s" target="_blank" class="table-link">رفع جانبي بالدامبل (Lateral Raises)</a></td><td>4 × 12-15</td></tr>
-                    <tr><td><a href="https://www.youtube.com/watch?v=7FmlLWyIfHs" target="_blank" class="table-link">فتح كتف خلفي (Reverse Pec Deck)</a></td><td>3 × 12-15</td></tr>
-                    <tr><td><a href="https://www.youtube.com/watch?v=TwD-YGVP4Bk" target="_blank" class="table-link">ثني ذراع بمطرقة (Hammer Curls)</a></td><td>3 × 10-12</td></tr>
-                    <tr><td><a href="https://www.youtube.com/watch?v=d_KZxkY_0cM" target="_blank" class="table-link">بسط ذراع مستلقي (Skull Crushers)</a></td><td>3 × 10-12</td></tr>
-
-                    <tr><td rowspan="5">الأربعاء<br>سفلي B</td><td><a href="https://www.youtube.com/watch?v=gsNoPYwWXeM" target="_blank" class="table-link">ضغط رجل (Hack Squat)</a></td><td>3 × 10-12</td></tr>
-                    <tr><td><a href="https://www.youtube.com/watch?v=v4S5X9qCiEc" target="_blank" class="table-link">ديدليفت كلاسيكي (Deadlift)</a></td><td>3 × 8-10</td></tr>
-                    <tr><td><a href="https://www.youtube.com/watch?v=D7KaRcUTQeE" target="_blank" class="table-link">طعنة بالدامبل (Lunges)</a></td><td>3 × 10 لكل رجل</td></tr>
-                    <tr><td><a href="https://www.youtube.com/watch?v=a4V2b6MEpA4" target="_blank" class="table-link">إبعاد وتقريب (ماكينة فخذ)</a></td><td>3 × 12-15</td></tr>
-                    <tr><td><a href="https://www.youtube.com/watch?v=W1qj7J3PPQM" target="_blank" class="table-link">رفع سمانة جالس (Seated Calf Raise)</a></td><td>4 × 15-20</td></tr>
-                </tbody>
-            </table>
-
-            <h2>جدول 5 أيام (Bro Split)</h2>
-            <table>
-                <thead><tr><th>اليوم</th><th>التمرين (اضغط الاسم)</th><th>مجموعات × تكرارات</th></tr></thead>
-                <tbody>
-                    <tr><td rowspan="5">السبت<br>صدر</td><td><a href="https://www.youtube.com/watch?v=rT7MbrCDE3E" target="_blank" class="table-link">ضغط بالبار مستلقياً (Bench Press)</a></td><td>4 × 8-10</td></tr>
-                    <tr><td><a href="https://www.youtube.com/watch?v=IZN6JBbJ8GQ" target="_blank" class="table-link">ضغط دامبل مائل (Incline DB Press)</a></td><td>4 × 10-12</td></tr>
-                    <tr><td><a href="https://www.youtube.com/watch?v=rT7MbrCDE3E" target="_blank" class="table-link">ضغط بنك مائل بالماكينة (Machine Press)</a></td><td>3 × 10-12</td></tr>
-                    <tr><td><a href="https://www.youtube.com/watch?v=7FmlLWyIfHs" target="_blank" class="table-link">تقاطع بالكيبل (Cable Crossover)</a></td><td>3 × 12-15</td></tr>
-                    <tr><td><a href="https://www.youtube.com/watch?v=3MBhQYtC0Ig" target="_blank" class="table-link">قبض بطن بالكيبل (Cable Crunch)</a></td><td>4 × 15-20</td></tr>
-
-                    <tr><td rowspan="5">الأحد<br>ظهر</td><td><a href="https://www.youtube.com/watch?v=3mJ6gFL5VXQ" target="_blank" class="table-link">جذب بالكيبل (Lat Pulldown)</a></td><td>4 × 10-12</td></tr>
-                    <tr><td><a href="https://www.youtube.com/watch?v=9efgcAjQe7E" target="_blank" class="table-link">تجديف بالبار مائل (Barbell Row)</a></td><td>4 × 8-10</td></tr>
-                    <tr><td><a href="https://www.youtube.com/watch?v=3mJ6gFL5VXQ" target="_blank" class="table-link">تجديف دامبل بيد واحدة (One-Arm Row)</a></td><td>3 × 10-12</td></tr>
-                    <tr><td><a href="https://www.youtube.com/watch?v=jEy_czb3RKA" target="_blank" class="table-link">ديدليفت روماني (RDL)</a></td><td>3 × 10-12</td></tr>
-                    <tr><td><a href="https://www.youtube.com/watch?v=7FmlLWyIfHs" target="_blank" class="table-link">فتح كتف خلفي (Reverse Pec Deck)</a></td><td>4 × 12-15</td></tr>
-
-                    <tr><td rowspan="4">الاثنين<br>كتف</td><td><a href="https://www.youtube.com/watch?v=qEwKCR5JCog" target="_blank" class="table-link">ضغط كتف بالدامبل (Shoulder Press)</a></td><td>4 × 8-10</td></tr>
-                    <tr><td><a href="https://www.youtube.com/watch?v=3Vc0tS9sR0s" target="_blank" class="table-link">رفع جانبي بالدامبل (Lateral Raises)</a></td><td>4 × 12-15</td></tr>
-                    <tr><td><a href="https://www.youtube.com/watch?v=7FmlLWyIfHs" target="_blank" class="table-link">وجهة حصان (Face Pulls)</a></td><td>3 × 15</td></tr>
-                    <tr><td><a href="https://www.youtube.com/watch?v=cT7QuHlzO0Y" target="_blank" class="table-link">ترابيس بالبار (Barbell Shrugs)</a></td><td>4 × 10-12</td></tr>
-
-                    <tr><td rowspan="6">الثلاثاء<br>أرجل</td><td><a href="https://www.youtube.com/watch?v=gsNoPYwWXeM" target="_blank" class="table-link">سكوات بالبار (Squat)</a></td><td>4 × 8-10</td></tr>
-                    <tr><td><a href="https://www.youtube.com/watch?v=IZN6JBbJ8GQ" target="_blank" class="table-link">ضغط رجل بالماكينة (Leg Press)</a></td><td>4 × 10-12</td></tr>
-                    <tr><td><a href="https://www.youtube.com/watch?v=jEy_czb3RKA" target="_blank" class="table-link">ديدليفت روماني (RDL)</a></td><td>4 × 8-10</td></tr>
-                    <tr><td><a href="https://www.youtube.com/watch?v=1oV-sEbba0M" target="_blank" class="table-link">ثني رجل نائماً (Leg Curl)</a></td><td>3 × 12</td></tr>
-                    <tr><td><a href="https://www.youtube.com/watch?v=a4V2b6MEpA4" target="_blank" class="table-link">ماكينة إبعاد وتقريب (Ab/Adduction)</a></td><td>3 × 15</td></tr>
-                    <tr><td><a href="https://www.youtube.com/watch?v=W1qj7J3PPQM" target="_blank" class="table-link">رفع سمانة واقف (Calf Raise)</a></td><td>4 × 20</td></tr>
-
-                    <tr><td rowspan="6">الأربعاء<br>ذراع</td><td><a href="https://www.youtube.com/watch?v=kmuEz2QZ5Rk" target="_blank" class="table-link">ثني ذراع بالبار (Barbell Curl)</a></td><td>4 × 10-12</td></tr>
-                    <tr><td><a href="https://www.youtube.com/watch?v=2HbBZ0TN8gI" target="_blank" class="table-link">بسط ذراع بالكيبل والحبل (Rope Pushdown)</a></td><td>4 × 10-12</td></tr>
-                    <tr><td><a href="https://www.youtube.com/watch?v=TwD-YGVP4Bk" target="_blank" class="table-link">ثني ذراع بمطرقة (Hammer Curls)</a></td><td>3 × 12</td></tr>
-                    <tr><td><a href="https://www.youtube.com/watch?v=d_KZxkY_0cM" target="_blank" class="table-link">بسط ذراع مستلقي (Skull Crushers)</a></td><td>3 × 10-12</td></tr>
-                    <tr><td><a href="https://www.youtube.com/watch?v=kmuEz2QZ5Rk" target="_blank" class="table-link">ثني معصم بالبار (Wrist Curls)</a></td><td>3 × 15</td></tr>
-                    <tr><td><a href="https://www.youtube.com/watch?v=2HbBZ0TN8gI" target="_blank" class="table-link">غمس على كرسي (Bench Dips)</a></td><td>3 × حتى الفشل</td></tr>
-                </tbody>
-            </table>
+            <!-- Quick Access Buttons -->
+            <div class="quick-access-container">
+                <a href="#programs" class="quick-btn">
+                    <i class="fas fa-dumbbell"></i>
+                    <span>جداول التمارين</span>
+                </a>
+                <a href="#meals" class="quick-btn">
+                    <i class="fas fa-utensils"></i>
+                    <span>الوجبات الصحية</span>
+                </a>
+                <a href="#weeklyTracker" class="quick-btn">
+                    <i class="fas fa-calendar-alt"></i>
+                    <span>الجدول الأسبوعي</span>
+                </a>
+            </div>
         </section>
 
-        <section id="calisthenics">
-            <h1>تمارين البيت - كاليستنكس (بدون جيم)</h1>
+        <!-- TIPS (Moved here directly after Home) -->
+        <section id="tips">
+            <h1>🏆 النصائح الذهبية</h1>
+            <p style="text-align:center; color:#aaa;">الرياضة أسلوب حياة، وهذي القواعد اللي لازم تعيش فيها عشان توصل لهدفك وتستمتع</p>
             
-            <h2>تسخين (5 دقايق) - اضغط على الحركة يشوفك الفيديو</h2>
-            <table>
-                <thead><tr><th>الحركة</th><th>المدة</th><th>فيديو</th></tr></thead>
-                <tbody>
-                    <tr><td>جري في المكان</td><td>2 دقيقة</td><td><a href="https://www.youtube.com/watch?v=ml6cT4AZdqI" target="_blank" class="table-link"><i class="fab fa-youtube"></i> شوف</a></td></tr>
-                    <tr><td>قفز مع فتح القدم (Jumping Jacks)</td><td>1 دقيقة</td><td><a href="https://www.youtube.com/watch?v=iSSAk4PvtjQ" target="_blank" class="table-link"><i class="fab fa-youtube"></i> شوف</a></td></tr>
-                    <tr><td>دوران الكتفين</td><td>1 دقيقة</td><td><a href="https://www.youtube.com/watch?v=2N1laOcFAl4" target="_blank" class="table-link"><i class="fab fa-youtube"></i> شوف</a></td></tr>
-                    <tr><td>سكوات بدون وزن</td><td>15 تكرار</td><td><a href="https://www.youtube.com/watch?v=gsNoPYwWXeM" target="_blank" class="table-link"><i class="fab fa-youtube"></i> شوف</a></td></tr>
-                </tbody>
-            </table>
-
-            <h2>الجدول (3 أيام بالأسبوع) - اضغط على التمرين يشوفك الفيديو</h2>
-            <table>
-                <thead><tr><th>التمرين</th><th>المجموعات</th><th>التكرارات</th><th>فيديو</th></tr></thead>
-                <tbody>
-                    <tr><td>ضغط (Push-ups)</td><td>4</td><td>حتى الفشل</td><td><a href="https://www.youtube.com/watch?v=IODxDxX7oi4" target="_blank" class="table-link"><i class="fab fa-youtube"></i> شوف</a></td></tr>
-                    <tr><td>جذب بالبار (Pull-ups) لو عندك</td><td>4</td><td>حتى الفشل</td><td><a href="https://www.youtube.com/watch?v=eGo4IYlbE5g" target="_blank" class="table-link"><i class="fab fa-youtube"></i> شوف</a></td></tr>
-                    <tr><td>غمس على كرسي (Chair Dips)</td><td>4</td><td>15-20</td><td><a href="https://www.youtube.com/watch?v=2z8JmcrW-As" target="_blank" class="table-link"><i class="fab fa-youtube"></i> شوف</a></td></tr>
-                    <tr><td>سكوات بالقفز (Jump Squats)</td><td>4</td><td>15-20</td><td><a href="https://www.youtube.com/watch?v=VfMVe_Jmqbc" target="_blank" class="table-link"><i class="fab fa-youtube"></i> شوف</a></td></tr>
-                    <tr><td>طعنة متناوبة (Walking Lunges)</td><td>3</td><td>10 لكل رجل</td><td><a href="https://www.youtube.com/watch?v=D7KaRcUTQeE" target="_blank" class="table-link"><i class="fab fa-youtube"></i> شوف</a></td></tr>
-                    <tr><td>اللوح (Plank)</td><td>3</td><td>60 ثانية</td><td><a href="https://www.youtube.com/watch?v=ASdvN_XEl_c" target="_blank" class="table-link"><i class="fab fa-youtube"></i> شوف</a></td></tr>
-                </tbody>
-            </table>
-
-            <h2>تهدئة وتطويل (Cool-down)</h2>
-            <table>
-                <thead><tr><th>الحركة</th><th>المدة</th><th>فيديو</th></tr></thead>
-                <tbody>
-                    <tr><td>تطويل الصدر على الحائط</td><td>30 ثانية</td><td><a href="https://www.youtube.com/watch?v=SZmCITabi0s" target="_blank" class="table-link"><i class="fab fa-youtube"></i> شوف</a></td></tr>
-                    <tr><td>تطويل الظهر (وضعية الطفل)</td><td>1 دقيقة</td><td><a href="https://www.youtube.com/watch?v=lhpldeL2ViE" target="_blank" class="table-link"><i class="fab fa-youtube"></i> شوف</a></td></tr>
-                    <tr><td>تطويل الفخذ الأمامي</td><td>30 ثانية</td><td><a href="https://www.youtube.com/watch?v=KSI6f8gWgHw" target="_blank" class="table-link"><i class="fab fa-youtube"></i> شوف</a></td></tr>
-                </tbody>
-            </table>
+            <div class="tip-grid">
+                <div class="tip-box">
+                    <h3 style="color:var(--blue); margin-top:0;">🧠 العقلية والانضباط</h3>
+                    <ul>
+                        <li>ركز على الاستمرارية، وليس الكمال.</li>
+                        <li>التقدم يستغرق وقتًا؛ تجنب توقع النتائج الفورية.</li>
+                        <li>الانضباط أهم من الحماس.</li>
+                        <li>قارن نفسك بنفسك في الماضي فقط.</li>
+                        <li>تفويت تمرين واحد طبيعي، لكن لا تفوّت مرتين.</li>
+                        <li>ابنِ عادات بدلًا من الاعتماد على الحماس.</li>
+                        <li>ابقَ صبورًا وثق بالعملية.</li>
+                        <li>ضع أهدافًا واقعية وتابع تقدمك.</li>
+                        <li>لا تدع المشاعر تقرر ما إذا كنت ستتمرن.</li>
+                        <li>النجاح يأتي من الأفعال الصغيرة المتكررة يوميًا.</li>
+                        <li>تجنب تغيير البرامج باستمرار.</li>
+                        <li>فكر على المدى الطويل، وليس القصير.</li>
+                        <li>استمتع بأسلوب الحياة بدلًا من مطاردة النتائج السريعة.</li>
+                        <li>تعلم من النكسات بدلًا من الاستسلام.</li>
+                        <li>ابقَ متواضعًا واستمر في التعلم دائمًا.</li>
+                    </ul>
+                </div>
+                <div class="tip-box">
+                    <h3 style="color:var(--blue); margin-top:0;">🍽 التغذية والترطيب</h3>
+                    <ul>
+                        <li>تناول البروتين ضروري لنمو العضلات واستشفائها.</li>
+                        <li>أعطِ الأولوية للأطعمة الكاملة معظم الوقت.</li>
+                        <li>اشرب كمية كافية من الماء يوميًا.</li>
+                        <li>لا تخف من الكربوهيدرات؛ فهي توفر الطاقة.</li>
+                        <li>الدهون الصحية مهمة للهرمونات.</li>
+                        <li>تناول سعرات كافية وفقًا لهدفك.</li>
+                        <li>لا تفوّت الوجبات دون داعٍ.</li>
+                        <li>الألياف تحسن الهضم والصحة العامة.</li>
+                        <li>قلل من الأطعمة فائقة المعالجة.</li>
+                        <li>تجنب السكر المفرط والمشروبات الغازية.</li>
+                        <li>وزع تناول البروتين على مدار اليوم.</li>
+                        <li>حافظ على الترطيب قبل التمرين وأثناءه وبعده.</li>
+                        <li>الفواكه والخضروات ضرورية للعناصر الغذائية الدقيقة.</li>
+                        <li>تجنب الأنظمة الغذائية القاسية.</li>
+                        <li>الاستمرارية أهم من الكمال.</li>
+                    </ul>
+                </div>
+                <div class="tip-box">
+                    <h3 style="color:var(--blue); margin-top:0;">🏋️ التمرين والأداء</h3>
+                    <ul>
+                        <li>ركز على الأداء الصحيح قبل زيادة الوزن.</li>
+                        <li>التحميل التدريجي هو مفتاح بناء العضلات.</li>
+                        <li>التكرارات الجيدة أفضل من رفع الأوزان بغرور.</li>
+                        <li>سخّن قبل كل تمرين.</li>
+                        <li>تمرن خلال نطاق حركة كامل.</li>
+                        <li>استرح بما يكفي بين المجموعات.</li>
+                        <li>احتفظ بسجل للتمارين.</li>
+                        <li>التمارين المركبة يجب أن تكون الأساس.</li>
+                        <li>تجنب التضحية بالتقنية من أجل أوزان أثقل.</li>
+                        <li>درّب العضلات بانتظام.</li>
+                        <li>زد الأوزان تدريجيًا.</li>
+                        <li>لا تنسخ اللاعبين المتقدمين بشكل أعمى.</li>
+                        <li>الشدة والاستمرارية تتفوقان على التمارين العشوائية.</li>
+                        <li>تجنب الحجم الزائد عن الحد.</li>
+                        <li>استمع لجسدك.</li>
+                    </ul>
+                </div>
+                <div class="tip-box">
+                    <h3 style="color:var(--blue); margin-top:0;">😴 الاستشفاء والنوم</h3>
+                    <ul>
+                        <li>النوم أحد أكبر عوامل الاستشفاء.</li>
+                        <li>استهدف 7-9 ساعات من النوم.</li>
+                        <li>العضلات تنمو وقت الاستشفاء.</li>
+                        <li>أيام الراحة مهمة.</li>
+                        <li>تحكم في مستويات التوتر.</li>
+                        <li>جودة النوم مهمة بقدر مدته.</li>
+                        <li>تجنب الشاشات قبل النوم.</li>
+                        <li>حافظ على الترطيب طوال اليوم.</li>
+                        <li>نقص الاستشفاء يمكن أن يبطئ التقدم.</li>
+                        <li>التمدد يمكن أن يحسن المرونة.</li>
+                        <li>لا تستهن بالقيلولة.</li>
+                        <li>قلة النوم تؤثر على الأداء.</li>
+                        <li>الراحة إنتاجية.</li>
+                        <li>أسابيع تقليل الحمل تساعد التقدم على المدى الطويل.</li>
+                        <li>جداول النوم المنتظمة تحسن الاستشفاء.</li>
+                    </ul>
+                </div>
+                <div class="tip-box">
+                    <h3 style="color:var(--blue); margin-top:0;">🩹 الإصابات والوقاية</h3>
+                    <ul>
+                        <li>سخّن دائمًا بشكل صحيح.</li>
+                        <li>استخدم التقنية الصحيحة.</li>
+                        <li>زد الأوزان تدريجيًا.</li>
+                        <li>تجنب رفع الأوزان بغرور.</li>
+                        <li>لا تتجاهل الألم.</li>
+                        <li>الاستشفاء جزء من التدريب.</li>
+                        <li>تمارين الحركة تقلل من خطر الإصابة.</li>
+                        <li>استرح إذا شعرت بشيء خطير.</li>
+                        <li>استخدم أحذية مناسبة.</li>
+                        <li>مدّ العضلات المشدودة.</li>
+                        <li>تجنب حجم التدريب المفرط.</li>
+                        <li>حافظ على وضعية جيدة.</li>
+                        <li>تعلم التنفس الصحيح.</li>
+                        <li>تمرن عبر الانزعاج، وليس الألم الحاد.</li>
+                        <li>استمع لعلامات التحذير من جسدك.</li>
+                    </ul>
+                </div>
+                <div class="tip-box">
+                    <h3 style="color:var(--blue); margin-top:0;">💊 المكملات الغذائية</h3>
+                    <ul>
+                        <li>المكملات ليست سحرًا.</li>
+                        <li>الطعام يجب أن يأتي دائمًا في المقام الأول.</li>
+                        <li>بروتين الواي مجرد مصدر مريح للبروتين.</li>
+                        <li>كرياتين مونوهيدرات من أكثر المكملات بحثًا.</li>
+                        <li>حافظ على الترطيب أثناء تناول الكرياتين.</li>
+                        <li>الكافيين يمكن أن يحسن الأداء.</li>
+                        <li>لا تضيع المال على مكملات غير ضرورية.</li>
+                        <li>اقرأ الملصقات بعناية.</li>
+                        <li>الاستمرارية أهم من المكملات.</li>
+                        <li>المكملات لا يمكنها تعويض النوم.</li>
+                        <li>المزيد من المكملات لا يعني نتائج أفضل.</li>
+                        <li>اشترِ من علامات تجارية موثوقة.</li>
+                        <li>تجنب الادعاءات غير الواقعية.</li>
+                        <li>ركز على الأساسيات قبل الإضافات.</li>
+                        <li>الصحة يجب أن تأتي دائمًا في المقام الأول.</li>
+                    </ul>
+                </div>
+                <div class="tip-box">
+                    <h3 style="color:var(--blue); margin-top:0;">📈 متابعة التقدم</h3>
+                    <ul>
+                        <li>التقط صور تقدمك بانتظام.</li>
+                        <li>قس تحسن القوة.</li>
+                        <li>تابع وزن جسمك أسبوعيًا.</li>
+                        <li>لا تعتمد فقط على الميزان.</li>
+                        <li>احتفل بالانتصارات الصغيرة.</li>
+                        <li>التقدم ليس دائمًا خطيًا.</li>
+                        <li>تابع تمارينك.</li>
+                        <li>تابع تغذيتك.</li>
+                        <li>ابقَ صبورًا.</li>
+                        <li>ثق بالاستمرارية.</li>
+                        <li>ركز على الاتجاهات، وليس التقلبات اليومية.</li>
+                        <li>زيادة القوة تقدم أيضًا.</li>
+                        <li>الاستمرارية تتفوق على الكمال.</li>
+                        <li>لا تقارن الفصل الأول من قصتك بالفصل العاشر من قصة شخص آخر.</li>
+                        <li>التحسينات الصغيرة تتراكم بمرور الوقت.</li>
+                    </ul>
+                </div>
+                <div class="tip-box">
+                    <h3 style="color:var(--blue); margin-top:0;">❤️ نمط الحياة والعادات</h3>
+                    <ul>
+                        <li>اللياقة أسلوب حياة، وليست تحديًا مؤقتًا.</li>
+                        <li>ابنِ عادات مستدامة.</li>
+                        <li>ابقَ نشيطًا خارج الجيم.</li>
+                        <li>امشِ أكثر.</li>
+                        <li>تحكم في التوتر.</li>
+                        <li>احط نفسك بأشخاص إيجابيين.</li>
+                        <li>تجنب التفكير بمنطق الكل أو اللاشيء.</li>
+                        <li>استمتع بالرحلة.</li>
+                        <li>تعلم باستمرار.</li>
+                        <li>الصحة تأتي قبل الشكل.</li>
+                        <li>التوازن مهم.</li>
+                        <li>ابقَ منضبطًا في الأوقات الصعبة.</li>
+                        <li>التحسينات الصغيرة تتراكم بمرور الوقت.</li>
+                        <li>الاستمرارية تنتصر.</li>
+                        <li>التفكير طويل المدى يصنع نتائج طويلة المدى.</li>
+                    </ul>
+                </div>
+                <div class="tip-box">
+                    <h3 style="color:var(--blue); margin-top:0;">🔥 أخطاء شائعة يجب تجنبها</h3>
+                    <ul>
+                        <li>مطاردة الاختصارات.</li>
+                        <li>تغيير البرنامج كل أسبوع.</li>
+                        <li>تجاهل النوم.</li>
+                        <li>إهمال التغذية.</li>
+                        <li>تخطي الإحماء.</li>
+                        <li>رفع الأوزان بغرور.</li>
+                        <li>مقارنة نفسك بالآخرين.</li>
+                        <li>التمرين بأداء خاطئ.</li>
+                        <li>توقع نتائج فورية.</li>
+                        <li>القيام بالكثير من الكارديو أثناء محاولة بناء العضلات.</li>
+                        <li>عدم متابعة التقدم.</li>
+                        <li>إهمال الاستشفاء.</li>
+                        <li>الاعتماد على المكملات بدلًا من الطعام.</li>
+                        <li>الاستسلام مبكرًا جدًا.</li>
+                        <li>عدم الاتساق والاستمرارية.</li>
+                    </ul>
+                </div>
+                <div class="tip-box">
+                    <h3 style="color:var(--blue); margin-top:0;">🚀 مبادئ النجاح</h3>
+                    <ul>
+                        <li>الاستمرارية تتفوق على الشدة.</li>
+                        <li>الصبر يصنع النتائج.</li>
+                        <li>الانضباط ينتصر على الحماس.</li>
+                        <li>ركز على التقدم، وليس الكمال.</li>
+                        <li>أتقن الأساسيات.</li>
+                        <li>ثق بالعملية.</li>
+                        <li>ابقَ متواضعًا.</li>
+                        <li>لا تتوقف أبدًا عن التعلم.</li>
+                        <li>اعتنِ بصحتك.</li>
+                        <li>فكر على المدى البعيد.</li>
+                        <li>ابنِ عادات تدوم.</li>
+                        <li>حاضر حتى عندما لا تشاء.</li>
+                        <li>الأفعال اليومية الصغيرة تصنع نتائج ضخمة.</li>
+                        <li>النجاح يُكسب، ولا يُمنح.</li>
+                        <li>أفضل مشروع ستعمل عليه على الإطلاق هو نفسك.</li>
+                    </ul>
+                </div>
+            </div>
         </section>
 
+        <!-- PROGRAMS -->
+        <section id="programs"><h1>📋 جداول التمارين</h1><div id="programsContainer"></div></section>
+
+        <!-- MUSCLES -->
+        <section id="muscles"><h1>💪 تمارين حسب العضلة</h1><div id="musclesContainer"></div></section>
+
+        <!-- MEALS -->
+        <section id="meals">
+            <h1>🥗 الوجبات الصحية</h1>
+            <p style="text-align:center; color:#aaa; margin-bottom:20px;">مجموعة متنوعة من الوجبات المناسبة لبناء العضلات، خسارة الدهون، أو الحفاظ على الوزن.</p>
+            
+            <div class="meal-tabs" id="mealTabs">
+                <button class="meal-tab active" onclick="setMealCategory('breakfast', this)">🌅 الإفطار</button>
+                <button class="meal-tab" onclick="setMealCategory('lunch', this)">☀️ الغداء</button>
+                <button class="meal-tab" onclick="setMealCategory('dinner', this)">🌙 العشاء</button>
+                <button class="meal-tab" onclick="setMealCategory('snacks', this)">🍎 السناكات</button>
+                <button class="meal-tab" onclick="setMealCategory('recipes', this)">📝 وصفات سريعة</button>
+                <button class="meal-tab" onclick="setMealCategory('drinks', this)">🥤 مشروبات</button>
+                <button class="meal-tab" onclick="setMealCategory('disclaimer', this)">⚠️ تنويه هام</button>
+            </div>
+
+            <div id="mealsContainer" class="meals-grid"></div>
+        </section>
+
+        <!-- NUTRITION -->
         <section id="nutrition">
-            <h1>الأكل وحاسبة السعرات 🧮</h1>
-            
-            <div style="background: var(--card-bg); padding: 20px; border-radius: 15px; border: 1px solid #333; margin-bottom: 20px;">
-                <h2 style="margin-top: 0; border: none; padding: 0; text-align: center;">حاسبة الاحتياج اليومي (TDEE)</h2>
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
-                    <div>
-                        <label>الوزن (كجم)</label>
-                        <input type="number" id="calcWeight" class="calc-input" style="margin-top: 5px;" placeholder="مثال: 80">
-                    </div>
-                    <div>
-                        <label>الطول (سم)</label>
-                        <input type="number" id="calcHeight" class="calc-input" style="margin-top: 5px;" placeholder="مثال: 175">
-                    </div>
-                    <div>
-                        <label>العمر</label>
-                        <input type="number" id="calcAge" class="calc-input" style="margin-top: 5px;" placeholder="مثال: 25">
-                    </div>
-                    <div>
-                        <label>مستوى النشاط</label>
-                        <select id="calcActivity" class="calc-input" style="margin-top: 5px; background: var(--main-bg);">
-                            <option value="1.2">قليل الحركة (مكتب)</option>
-                            <option value="1.375">نشاط خفيف (1-3 أيام)</option>
-                            <option value="1.55" selected>نشاط متوسط (3-5 أيام)</option>
-                            <option value="1.725">نشاط عالي (6-7 أيام)</option>
-                        </select>
-                    </div>
-                </div>
-                <div style="margin-top: 15px;">
-                    <label>هدفك</label>
-                    <select id="calcGoal" class="calc-input" style="margin-top: 5px; background: var(--main-bg);">
-                        <option value="400">تضخيم (Bulk) - زود 400</option>
-                        <option value="0">ثبات (Maintain)</option>
-                        <option value="-400">تنشيف (Cut) - أنقص 400</option>
-                    </select>
-                </div>
-                <button onclick="calculateTDEE()" class="calc-btn">احسب حصتي يا وحش 💪</button>
-                
-                <div id="calcResults" style="margin-top: 20px; display: none;">
-                    <div style="background: var(--main-bg); padding: 20px; border-radius: 10px; border: 1px solid var(--gold);">
-                        <p style="font-size: 14px; color: #aaa;">معدل الأيض (BMR): <span id="resBMR" style="color:#fff;">0</span> سعرة</p>
-                        <p style="font-size: 14px; color: #aaa;">احتياجك اليومي (TDEE): <span id="resTDEE" style="color:#fff;">0</span> سعرة</p>
-                        <p style="color: var(--red); font-size: 20px; font-weight: 900; margin: 10px 0;">السعرات المطلوبة لك: <span id="resTarget">0</span> سعرة</p>
-                        <hr style="border-color: #333; margin: 15px 0;">
-                        <p><strong>🥩 البروتين:</strong> <span id="resProtein" style="color: var(--gold);">0</span> جرام</p>
-                        <p><strong>🥑 الدهون:</strong> <span id="resFats" style="color: var(--gold);">0</span> جرام</p>
-                        <p><strong>🍚 الكربوهيدرات:</strong> <span id="resCarbs" style="color: var(--gold);">0</span> جرام</p>
-                    </div>
-                </div>
+            <h1>🍽️ دليل التغذية السريع (بدون طبخ)</h1>
+            <div class="macro-tabs" id="macroTabs">
+                <button class="macro-tab active" onclick="setMacroFilter('protein', this)">🥩 بروتين عالي</button>
+                <button class="macro-tab" onclick="setMacroFilter('carb', this)">🍞 كاربوهيدرات</button>
+                <button class="macro-tab" onclick="setMacroFilter('fat', this)">🥑 دهون صحية</button>
             </div>
-
-            <h2>أفضل الأكلات والمصادر</h2>
-            <p><strong>البروتين:</strong> صدور الدجاج، اللحم البقري، البيض، التونة، سمك السلمون.<br>
-            <strong>الطبخة:</strong> اشوِ الدجاج واللحم على الشواية أو الفرن بدون زيوت. البيض مسلوق أفضل شيء.<br>
-            <a href="https://www.youtube.com/watch?v=gRtPrBf1LXk" target="_blank" class="youtube-link"><i class="fab fa-youtube"></i> شوف طرق طبخ الدجاج</a></p>
-            
-            <p><strong>الكربوهيدرات:</strong> الأرز البسمتي، الشوفان، البطاطا الحلوة، المكرونة.<br>
-            <strong>الطبخة:</strong> اسلق الأرز والمكرونة. الشوفان حضّره بالماء أو الحليب خالي الدسم مع موزة.</p>
-            
-            <p><strong>الدهون الصحية:</strong> المكسرات (لوز، جوز)، الأفوكادو، زيت الزيتون البكر، زبدة فول سوداني.</p>
+            <div class="food-grid" id="foodGrid"></div>
         </section>
 
-        <section id="tracker">
-            <h1>جدول المتابعة (سجل تمارينك)</h1>
-            <p style="text-align: center; margin-bottom: 20px;">اكتب اسم التمرين اللي سويته، كم وزن شلت، وكم تكرار سويت</p>
-            <table>
-                <thead>
-                    <tr>
-                        <th style="width: 15%;">العضلة</th>
-                        <th style="width: 30%;">اسم التمرين (اكتبه)</th>
-                        <th style="width: 15%;">الوزن (كجم)</th>
-                        <th style="width: 15%;">التكرار</th>
-                        <th style="width: 25%;">ملاحظات</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td rowspan="3" style="vertical-align: middle; font-weight: bold; color: var(--gold);">صدر</td>
-                        <td><input type="text" class="tracker-input" placeholder="مثال: ضغط بالبار"></td>
-                        <td><input type="text" class="tracker-input" placeholder="80"></td>
-                        <td><input type="text" class="tracker-input" placeholder="10"></td>
-                        <td><input type="text" class="tracker-input" placeholder="سهل، زود الوزن"></td>
-                    </tr>
-                    <tr>
-                        <td><input type="text" class="tracker-input"></td>
-                        <td><input type="text" class="tracker-input"></td>
-                        <td><input type="text" class="tracker-input"></td>
-                        <td><input type="text" class="tracker-input"></td>
-                    </tr>
-                    <tr>
-                        <td><input type="text" class="tracker-input"></td>
-                        <td><input type="text" class="tracker-input"></td>
-                        <td><input type="text" class="tracker-input"></td>
-                        <td><input type="text" class="tracker-input"></td>
-                    </tr>
-
-                    <tr>
-                        <td rowspan="3" style="vertical-align: middle; font-weight: bold; color: var(--gold);">ظهر</td>
-                        <td><input type="text" class="tracker-input" placeholder="مثال: جذب بالكيبل"></td>
-                        <td><input type="text" class="tracker-input" placeholder="60"></td>
-                        <td><input type="text" class="tracker-input" placeholder="12"></td>
-                        <td><input type="text" class="tracker-input"></td>
-                    </tr>
-                    <tr>
-                        <td><input type="text" class="tracker-input"></td>
-                        <td><input type="text" class="tracker-input"></td>
-                        <td><input type="text" class="tracker-input"></td>
-                        <td><input type="text" class="tracker-input"></td>
-                    </tr>
-                    <tr>
-                        <td><input type="text" class="tracker-input"></td>
-                        <td><input type="text" class="tracker-input"></td>
-                        <td><input type="text" class="tracker-input"></td>
-                        <td><input type="text" class="tracker-input"></td>
-                    </tr>
-
-                    <tr>
-                        <td rowspan="3" style="vertical-align: middle; font-weight: bold; color: var(--gold);">كتف وترابيس</td>
-                        <td><input type="text" class="tracker-input"></td>
-                        <td><input type="text" class="tracker-input"></td>
-                        <td><input type="text" class="tracker-input"></td>
-                        <td><input type="text" class="tracker-input"></td>
-                    </tr>
-                    <tr>
-                        <td><input type="text" class="tracker-input"></td>
-                        <td><input type="text" class="tracker-input"></td>
-                        <td><input type="text" class="tracker-input"></td>
-                        <td><input type="text" class="tracker-input"></td>
-                    </tr>
-                    <tr>
-                        <td><input type="text" class="tracker-input"></td>
-                        <td><input type="text" class="tracker-input"></td>
-                        <td><input type="text" class="tracker-input"></td>
-                        <td><input type="text" class="tracker-input"></td>
-                    </tr>
-
-                    <tr>
-                        <td rowspan="2" style="vertical-align: middle; font-weight: bold; color: var(--gold);">باي</td>
-                        <td><input type="text" class="tracker-input"></td>
-                        <td><input type="text" class="tracker-input"></td>
-                        <td><input type="text" class="tracker-input"></td>
-                        <td><input type="text" class="tracker-input"></td>
-                    </tr>
-                    <tr>
-                        <td><input type="text" class="tracker-input"></td>
-                        <td><input type="text" class="tracker-input"></td>
-                        <td><input type="text" class="tracker-input"></td>
-                        <td><input type="text" class="tracker-input"></td>
-                    </tr>
-
-                    <tr>
-                        <td rowspan="2" style="vertical-align: middle; font-weight: bold; color: var(--gold);">تراي</td>
-                        <td><input type="text" class="tracker-input"></td>
-                        <td><input type="text" class="tracker-input"></td>
-                        <td><input type="text" class="tracker-input"></td>
-                        <td><input type="text" class="tracker-input"></td>
-                    </tr>
-                    <tr>
-                        <td><input type="text" class="tracker-input"></td>
-                        <td><input type="text" class="tracker-input"></td>
-                        <td><input type="text" class="tracker-input"></td>
-                        <td><input type="text" class="tracker-input"></td>
-                    </tr>
-
-                    <tr>
-                        <td rowspan="4" style="vertical-align: middle; font-weight: bold; color: var(--gold);">أرجل</td>
-                        <td><input type="text" class="tracker-input"></td>
-                        <td><input type="text" class="tracker-input"></td>
-                        <td><input type="text" class="tracker-input"></td>
-                        <td><input type="text" class="tracker-input"></td>
-                    </tr>
-                    <tr>
-                        <td><input type="text" class="tracker-input"></td>
-                        <td><input type="text" class="tracker-input"></td>
-                        <td><input type="text" class="tracker-input"></td>
-                        <td><input type="text" class="tracker-input"></td>
-                    </tr>
-                    <tr>
-                        <td><input type="text" class="tracker-input"></td>
-                        <td><input type="text" class="tracker-input"></td>
-                        <td><input type="text" class="tracker-input"></td>
-                        <td><input type="text" class="tracker-input"></td>
-                    </tr>
-                    <tr>
-                        <td><input type="text" class="tracker-input"></td>
-                        <td><input type="text" class="tracker-input"></td>
-                        <td><input type="text" class="tracker-input"></td>
-                        <td><input type="text" class="tracker-input"></td>
-                    </tr>
-
-                    <tr>
-                        <td rowspan="2" style="vertical-align: middle; font-weight: bold; color: var(--gold);">بطن / كور</td>
-                        <td><input type="text" class="tracker-input"></td>
-                        <td><input type="text" class="tracker-input"></td>
-                        <td><input type="text" class="tracker-input"></td>
-                        <td><input type="text" class="tracker-input"></td>
-                    </tr>
-                    <tr>
-                        <td><input type="text" class="tracker-input"></td>
-                        <td><input type="text" class="tracker-input"></td>
-                        <td><input type="text" class="tracker-input"></td>
-                        <td><input type="text" class="tracker-input"></td>
-                    </tr>
-                </tbody>
-            </table>
+        <!-- TRACKER -->
+        <section id="weeklyTracker">
+            <h1>📊 الجدول الأسبوعي (وزن وتمارين)</h1>
+            <p style="text-align:center; color:#aaa;">البيانات تنحفظ تلقائياً في جهازك</p>
+            <div style="overflow-x: auto;">
+                <table style="min-width: 700px;">
+                    <thead><tr><th>اليوم</th><th>السبت</th><th>الأحد</th><th>الاثنين</th><th>الثلاثاء</th><th>الأربعاء</th><th>الخميس</th><th>الجمعة</th></tr></thead>
+                    <tbody id="weeklyBody">
+                        <tr>
+                            <td style="font-weight:bold; color:var(--blue);">الوزن (كجم)</td>
+                            <td><input type="number" class="tracker-input" id="w_sat" oninput="saveWeekly()"></td>
+                            <td><input type="number" class="tracker-input" id="w_sun" oninput="saveWeekly()"></td>
+                            <td><input type="number" class="tracker-input" id="w_mon" oninput="saveWeekly()"></td>
+                            <td><input type="number" class="tracker-input" id="w_tue" oninput="saveWeekly()"></td>
+                            <td><input type="number" class="tracker-input" id="w_wed" oninput="saveWeekly()"></td>
+                            <td><input type="number" class="tracker-input" id="w_thu" oninput="saveWeekly()"></td>
+                            <td><input type="number" class="tracker-input" id="w_fri" oninput="saveWeekly()"></td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight:bold; color:var(--blue);">العضلة المستهدفة</td>
+                            <td><input type="text" class="tracker-input" id="m_sat" placeholder="صدر" oninput="saveWeekly()"></td>
+                            <td><input type="text" class="tracker-input" id="m_sun" oninput="saveWeekly()"></td>
+                            <td><input type="text" class="tracker-input" id="m_mon" oninput="saveWeekly()"></td>
+                            <td><input type="text" class="tracker-input" id="m_tue" oninput="saveWeekly()"></td>
+                            <td><input type="text" class="tracker-input" id="m_wed" oninput="saveWeekly()"></td>
+                            <td><input type="text" class="tracker-input" id="m_thu" oninput="saveWeekly()"></td>
+                            <td><input type="text" class="tracker-input" id="m_fri" oninput="saveWeekly()"></td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight:bold; color:var(--blue);">التمارين / التكرارات</td>
+                            <td><textarea class="tracker-input" id="e_sat" style="height:80px;" oninput="saveWeekly()"></textarea></td>
+                            <td><textarea class="tracker-input" id="e_sun" style="height:80px;" oninput="saveWeekly()"></textarea></td>
+                            <td><textarea class="tracker-input" id="e_mon" style="height:80px;" oninput="saveWeekly()"></textarea></td>
+                            <td><textarea class="tracker-input" id="e_tue" style="height:80px;" oninput="saveWeekly()"></textarea></td>
+                            <td><textarea class="tracker-input" id="e_wed" style="height:80px;" oninput="saveWeekly()"></textarea></td>
+                            <td><textarea class="tracker-input" id="e_thu" style="height:80px;" oninput="saveWeekly()"></textarea></td>
+                            <td><textarea class="tracker-input" id="e_fri" style="height:80px;" oninput="saveWeekly()"></textarea></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </section>
 
-        <section id="conclusion" style="text-align: center; background: radial-gradient(circle at center, #1a1a1a 0%, var(--main-bg) 70%); border-top: 5px solid var(--red);">
-            <h1>كل التوفيق يا وحش!</h1>
-            <p style="font-size: 20px; color: var(--red);">النتائج ما تجي بيوم وليلة، لكن أكيد بتجي للي يداوم. كل تمرين تسويه هو استثمار بجسمك وصحتك. تذكر دايمًا الإنضباط أهم من الحماس.</p>
-            <p style="font-size: 22px; color: var(--gold); font-weight: 900; margin-top: 30px;">نفتخر إنك مع عائلة FitZone!</p>
+        <!-- CONCLUSION -->
+        <section id="conclusion" class="conclusion-section">
+            <h1 style="font-size: 40px; margin-bottom: 20px;">الخاتمة</h1>
+            <div class="warning-box" style="margin-top: 0; margin-bottom: 25px; max-width: 600px; margin-left: auto; margin-right: auto;">⚠️ تنبيه: ما أحلل ولا أبيح لأي شخص ينشر أو يشارك الموقع أو الرابط.</div>
+            <p style="font-size: 20px; color: #fff; max-width: 700px; margin: 0 auto 20px auto; line-height: 1.8;">
+                الرحلة ما تنتهي هنا يا وحش! التغيير الحقيقي يبدأ من اللحظة اللي تقرر فيها ما ترجع للوراء. 
+                <br> الصبر والانضباط هم مفتاح النجاح.
+            </p>
+            <div style="margin-top: 40px;">
+                <a onclick="topFunction()" style="background: var(--blue); color: #000; padding: 15px 30px; border-radius: 50px; font-weight: 900; font-size: 18px; cursor: pointer;">يرجعك للأعلى يا بطل ☝️</a>
+            </div>
+            <div style="margin-top: 60px; border-top: 1px solid #333; padding-top: 20px; color: #555; font-size: 14px;">FitZone &copy; 26</div>
         </section>
-
     </div>
 
     <script>
-        window.onscroll = function() { progressFunction(); scrollFunction(); };
+        function toggleNav() { document.getElementById("mySidenav").style.width = document.getElementById("mySidenav").style.width === "250px" ? "0" : "250px"; }
+        function closeNav() { document.getElementById("mySidenav").style.width = "0"; }
+        window.onscroll = function() { var h = document.documentElement.scrollHeight - document.documentElement.clientHeight; var s = (document.documentElement.scrollTop / h) * 100; document.getElementById("myBar").style.width = s + "%"; document.getElementById("myBtn").style.display = document.documentElement.scrollTop > 20 ? "block" : "none"; };
+        function topFunction() { document.documentElement.scrollTop = 0; }
 
-        function progressFunction() {
-            var winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-            var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-            var scrolled = (winScroll / height) * 100;
-            document.getElementById("myBar").style.width = scrolled + "%";
+        // Updated Video Links for Calisthenics
+        const videoLinks = {
+            "Machine Fly": "https://youtube.com/shorts/a9vQ_hwIksU", "Incline Smith Machine Press": "https://youtube.com/shorts/VXaBbUYMfIs", "Chest Press": "https://youtube.com/shorts/Qu7-ceCvq7w",
+            "Incline Dumbbell Press": "https://youtube.com/shorts/8fXfwG4ftaQ", "Cable Crossover": "https://youtube.com/shorts/I-Ue34qLxc4", "Shoulder Press": "https://youtube.com/shorts/k6tzKisR3NY",
+            "Lateral Raise": "https://youtube.com/shorts/Kl3LEzQ5Zqs", "Rear Delt Fly": "https://youtube.com/shorts/7tgx6QHB0-A", "Shrugs": "https://youtube.com/shorts/rFsSeClGnNA",
+            "Overhead Extension": "https://youtube.com/shorts/9Ark9S11uXw", "Triceps Pushdown": "https://youtube.com/shorts/9qupVR7pKtk", "Biceps Curl": "https://youtube.com/shorts/MLGpe5vGOh4",
+            "Lat Pulldown": "https://youtube.com/shorts/bNmvKpJSWKM", "Seated Cable Row": "https://youtube.com/shorts/qD1WZ5pSuvk", "Dumbbell Row": "https://youtube.com/shorts/yHqqGd0tXcw",
+            "Leg Extension": "https://youtube.com/shorts/iQ92TuvBqRo", "Leg Press": "https://youtube.com/shorts/EotSw18oR9w", "Seated Leg Curl": "https://youtube.com/shorts/_lgE0gPvbik",
+            "Back Extension": "https://youtube.com/shorts/8rXdAAwm8Rs", "Standing Calf Raise": "https://youtube.com/shorts/wdOkFomQNp8", "Inner Thigh Machine": "https://youtube.com/shorts/vNixlpsswr8", "Abs Workout": "https://youtube.com/shorts/SdIczSwWM6o",
+            "Push-ups": "https://youtube.com/shorts/4Bc1tPaYkOo", 
+            "Pull-ups": "https://youtube.com/shorts/eDP_OOhMTZ4", 
+            "Chair Dips": "https://youtube.com/shorts/cFK5G2Exwwo",
+            "Bodyweight Squats": "https://youtube.com/shorts/-5LhNSMBrEs", 
+            "Lunges": "https://youtube.com/shorts/38xlLGfguz4", 
+            "Plank": "https://youtube.com/shorts/xe2MXatLTUw"
+        };
+
+        const ex = (en, ar, sets, reps, target) => ({ en, ar, sets, reps, target, video: videoLinks[en] || "#" });
+
+        const programs = [
+            { title: "3 Days Push Pull Legs (الراحة: أربعاء واحد)", days: [
+                { name: "Day 1: Push", exercises: [ex("Machine Fly","تفتيح صدر جهاز",3,"10-12","Chest"), ex("Incline Smith Machine Press","ضغط صدر مائل سميث",3,"8-10","Chest"), ex("Chest Press","ضغط صدر جهاز",3,"10-12","Chest"), ex("Shoulder Press","ضغط كتف",3,"10-12","Shoulders"), ex("Lateral Raise","رفرفة جانبية",3,"12-15","Shoulders"), ex("Overhead Extension","تمديد ترايسبس فوق الرأس",3,"10-12","Triceps"), ex("Triceps Pushdown","ضغط ترايسبس بالكابل",3,"10-12","Triceps")]},
+                { name: "Day 2: Pull", exercises: [ex("Lat Pulldown","سحب أمامي",3,"10-12","Back"), ex("Seated Cable Row","سحب أرضي بالكابل",3,"10-12","Back"), ex("Dumbbell Row","تجديف دمبل",3,"10-12","Back"), ex("Rear Delt Fly","كتف خلفي",3,"12-15","Shoulders"), ex("Shrugs","ترابيس",3,"12-15","Traps"), ex("Biceps Curl","بايسبس",3,"10-12","Biceps")]},
+                { name: "Day 3: Legs", exercises: [ex("Leg Extension","تمديد الفخذ الأمامي",3,"12-15","Quads"), ex("Leg Press","ضغط الأرجل",3,"10-12","Legs"), ex("Seated Leg Curl","الفخذ الخلفي",3,"10-12","Hamstrings"), ex("Back Extension","أسفل الظهر",3,"12-15","Lower Back"), ex("Standing Calf Raise","بطات",4,"12-15","Calves"), ex("Inner Thigh Machine","الفخذ الداخلي",3,"12-15","Adductors"), ex("Abs Workout","بطن",3,"15-20","Abs")]}
+            ]},
+            { title: "4 Days Upper Lower (الراحة: أربعاء، جمعة)", days: [
+                { name: "Day 1: Upper A", exercises: [ex("Chest Press","ضغط صدر جهاز",3,"10-12","Chest"), ex("Incline Dumbbell Press","ضغط دمبل مائل",3,"10-12","Chest"), ex("Lat Pulldown","سحب أمامي",3,"10-12","Back"), ex("Seated Cable Row","سحب أرضي بالكابل",3,"10-12","Back"), ex("Lateral Raise","رفرفة جانبية",3,"12-15","Shoulders"), ex("Triceps Pushdown","ضغط ترايسبس",3,"10-12","Triceps"), ex("Biceps Curl","بايسبس",3,"10-12","Biceps")]},
+                { name: "Day 2: Lower A", exercises: [ex("Leg Extension","تمديد الفخذ",3,"12-15","Quads"), ex("Leg Press","ضغط الأرجل",3,"10-12","Legs"), ex("Seated Leg Curl","فخذ خلفي",3,"10-12","Hamstrings"), ex("Standing Calf Raise","بطات",3,"15-20","Calves"), ex("Abs Workout","بطن",3,"15-20","Abs")]},
+                { name: "Day 3: Upper B", exercises: [ex("Incline Smith Machine Press","ضغط سميث مائل",3,"8-10","Chest"), ex("Cable Crossover","كروس كيبل",3,"12-15","Chest"), ex("Dumbbell Row","تجديف دمبل",3,"10-12","Back"), ex("Shoulder Press","ضغط كتف",3,"10-12","Shoulders"), ex("Rear Delt Fly","كتف خلفي",3,"12-15","Shoulders"), ex("Overhead Extension","تمديد ترايسبس",3,"10-12","Triceps"), ex("Biceps Curl","بايسبس",3,"10-12","Biceps")]},
+                { name: "Day 4: Lower B", exercises: [ex("Leg Press","ضغط أرجل",3,"10-12","Legs"), ex("Seated Leg Curl","فخذ خلفي",3,"10-12","Hamstrings"), ex("Back Extension","أسفل الظهر",3,"12-15","Lower Back"), ex("Inner Thigh Machine","فخذ داخلي",3,"12-15","Adductors"), ex("Standing Calf Raise","بطات",3,"15-20","Calves"), ex("Abs Workout","بطن",3,"15-20","Abs")]}
+            ]},
+            { title: "5 Days PPL Upper Lower (الراحة: الاربعاء والسبت)", days: [
+                { name: "Day 1: Push", exercises: [ex("Machine Fly","تفتيح صدر",3,"10-12","Chest"), ex("Incline Smith Machine Press","ضغط سميث مائل",3,"8-10","Chest"), ex("Chest Press","ضغط صدر",3,"10-12","Chest"), ex("Shoulder Press","ضغط كتف",3,"10-12","Shoulders"), ex("Lateral Raise","رفرفة جانبية",3,"12-15","Shoulders"), ex("Overhead Extension","تمديد ترايسبس",3,"10-12","Triceps"), ex("Triceps Pushdown","ضغط ترايسبس",3,"10-12","Triceps")]},
+                { name: "Day 2: Pull", exercises: [ex("Lat Pulldown","سحب أمامي",3,"10-12","Back"), ex("Seated Cable Row","سحب أرضي",3,"10-12","Back"), ex("Dumbbell Row","تجديف دمبل",3,"10-12","Back"), ex("Rear Delt Fly","كتف خلفي",3,"12-15","Shoulders"), ex("Shrugs","ترابيس",3,"12-15","Traps"), ex("Biceps Curl","بايسبس",3,"10-12","Biceps")]},
+                { name: "Day 3: Legs", exercises: [ex("Leg Extension","تمديد فخذ",3,"12-15","Quads"), ex("Leg Press","ضغط أرجل",3,"10-12","Legs"), ex("Seated Leg Curl","فخذ خلفي",3,"10-12","Hamstrings"), ex("Back Extension","أسفل الظهر",3,"12-15","Lower Back"), ex("Standing Calf Raise","بطات",4,"12-15","Calves"), ex("Inner Thigh Machine","فخذ داخلي",3,"12-15","Adductors"), ex("Abs Workout","بطن",3,"15-20","Abs")]},
+                { name: "Day 4: Upper", exercises: [ex("Chest Press","ضغط صدر",3,"10-12","Chest"), ex("Cable Crossover","كروس كيبل",3,"12-15","Chest"), ex("Lat Pulldown","سحب أمامي",3,"10-12","Back"), ex("Seated Cable Row","سحب أرضي",3,"10-12","Back"), ex("Shoulder Press","ضغط كتف",3,"10-12","Shoulders"), ex("Biceps Curl","بايسبس",3,"10-12","Biceps"), ex("Triceps Pushdown","ترايسبس",3,"10-12","Triceps")]},
+                { name: "Day 5: Lower", exercises: [ex("Leg Press","ضغط أرجل",3,"10-12","Legs"), ex("Leg Extension","تمديد فخذ",3,"12-15","Quads"), ex("Seated Leg Curl","فخذ خلفي",3,"10-12","Hamstrings"), ex("Back Extension","أسفل الظهر",3,"12-15","Lower Back"), ex("Standing Calf Raise","بطات",3,"15-20","Calves"), ex("Inner Thigh Machine","فخذ داخلي",3,"12-15","Adductors"), ex("Abs Workout","بطن",3,"15-20","Abs")]}
+            ]},
+            { title: "6 Days Push Pull Legs (الراحة: كل ثلاث ايام)", days: [
+                { name: "Day 1: Push 1", exercises: [ex("Chest Press","ضغط صدر",4,"8-10","Chest"), ex("Incline Dumbbell Press","ضغط دمبل مائل",3,"10-12","Chest"), ex("Shoulder Press","ضغط كتف",3,"10-12","Shoulders"), ex("Lateral Raise","رفرفة جانبية",3,"12-15","Shoulders"), ex("Triceps Pushdown","ترايسبس",3,"10-12","Triceps")]},
+                { name: "Day 2: Pull 1", exercises: [ex("Lat Pulldown","سحب أمامي",4,"8-10","Back"), ex("Seated Cable Row","سحب أرضي",3,"10-12","Back"), ex("Rear Delt Fly","كتف خلفي",3,"12-15","Shoulders"), ex("Biceps Curl","بايسبس",3,"10-12","Biceps")]},
+                { name: "Day 3: Legs 1", exercises: [ex("Leg Press","ضغط أرجل",4,"8-10","Legs"), ex("Leg Extension","تمديد فخذ",3,"12-15","Quads"), ex("Seated Leg Curl","فخذ خلفي",3,"10-12","Hamstrings"), ex("Standing Calf Raise","بطات",4,"12-15","Calves")]},
+                { name: "Day 4: Rest", exercises: [] },
+                { name: "Day 5: Push 2", exercises: [ex("Machine Fly","تفتيح صدر",3,"12-15","Chest"), ex("Incline Smith Machine Press","ضغط سميث مائل",3,"10-12","Chest"), ex("Lateral Raise","رفرفة جانبية",4,"12-15","Shoulders"), ex("Overhead Extension","تمديد ترايسبس",3,"10-12","Triceps")]},
+                { name: "Day 6: Pull 2", exercises: [ex("Dumbbell Row","تجديف دمبل",4,"8-10","Back"), ex("Lat Pulldown","سحب أمامي",3,"10-12","Back"), ex("Shrugs","ترابيس",3,"12-15","Traps"), ex("Biceps Curl","بايسبس",3,"10-12","Biceps")]},
+                { name: "Day 7: Legs 2", exercises: [ex("Back Extension","أسفل الظهر",3,"12-15","Lower Back"), ex("Inner Thigh Machine","فخذ داخلي",3,"12-15","Adductors"), ex("Standing Calf Raise","بطات",4,"15-20","Calves"), ex("Abs Workout","بطن",4,"15-20","Abs")]}
+            ]},
+            { title: "Beginner Program (3 Days Full Body)", days: [
+                { name: "Day 1", exercises: [ex("Chest Press","ضغط صدر",3,"10-12","Chest"), ex("Lat Pulldown","سحب أمامي",3,"10-12","Back"), ex("Leg Press","ضغط أرجل",3,"10-12","Legs"), ex("Shoulder Press","ضغط كتف",3,"10-12","Shoulders"), ex("Triceps Pushdown","ترايسبس",2,"12-15","Triceps"), ex("Biceps Curl","بايسبس",2,"12-15","Biceps")]},
+                { name: "Day 2", exercises: [ex("Incline Dumbbell Press","ضغط دمبل مائل",3,"10-12","Chest"), ex("Seated Cable Row","سحب أرضي",3,"10-12","Back"), ex("Leg Extension","تمديد فخذ",3,"12-15","Quads"), ex("Lateral Raise","رفرفة جانبية",3,"12-15","Shoulders"), ex("Abs Workout","بطن",3,"15-20","Abs")]}
+            ]},
+            { title: "Calisthenics (تمارين الوزن الجسدي)", days: [
+                { name: "Day 1: Upper Body", exercises: [ex("Push-ups","ضغط (Push-ups)",4,"حتى الفشل","Chest"), ex("Pull-ups","جذب بالبار (Pull-ups)",4,"حتى الفشل","Back"), ex("Chair Dips","غمس على كرسي (Chair Dips)",4,"15-20","Triceps"), ex("Plank","اللوح (Plank)",3,"60 ثانية","Core")]},
+                { name: "Day 2: Lower Body", exercises: [ex("Bodyweight Squats","سكوات بدون وزن",4,"20","Legs"), ex("Lunges","طعنة متناوبة",3,"15 لكل رجل","Legs"), ex("Standing Calf Raise","بطات",4,"20","Calves"), ex("Abs Workout","بطن",3,"20","Core")]}
+            ]}
+        ];
+
+        const muscleGroups = [
+            { title: "Chest (الصدر)", exercises: [ex("Chest Press","ضغط صدر جهاز",0,"","Chest"), ex("Incline Dumbbell Press","ضغط دمبل مائل",0,"","Chest"), ex("Cable Crossover","كروس كيبل",0,"","Chest")]},
+            { title: "Back (الظهر)", exercises: [ex("Lat Pulldown","سحب أمامي",0,"","Back"), ex("Seated Cable Row","سحب أرضي بالكابل",0,"","Back"), ex("Dumbbell Row","تجديف دمبل",0,"","Back")]},
+            { title: "Shoulders & Traps (الكتف والترابيس)", exercises: [ex("Shoulder Press","ضغط كتف",0,"","Shoulders"), ex("Lateral Raise","رفرفة جانبية",0,"","Shoulders"), ex("Rear Delt Fly","كتف خلفي",0,"","Shoulders"), ex("Shrugs","ترابيس",0,"","Traps")]},
+            { title: "Arms (الذراعين)", exercises: [ex("Overhead Extension","تمديد ترايسبس فوق الرأس",0,"","Triceps"), ex("Triceps Pushdown","ضغط ترايسبس بالكابل",0,"","Triceps"), ex("Biceps Curl","بايسبس",0,"","Biceps")]},
+            { title: "Legs (الأرجل)", exercises: [ex("Leg Extension","تمديد الفخذ الأمامي",0,"","Quads"), ex("Leg Press","ضغط الأرجل",0,"","Legs"), ex("Seated Leg Curl","الفخذ الخلفي",0,"","Hamstrings"), ex("Back Extension","أسفل الظهر",0,"","Lower Back"), ex("Standing Calf Raise","بطات",0,"","Calves"), ex("Inner Thigh Machine","الفخذ الداخلي",0,"","Adductors")]},
+            { title: "Abs (البطن)", exercises: [ex("Abs Workout","بطن",0,"","Abs")]}
+        ];
+
+        function renderPrograms() {
+            const c = document.getElementById('programsContainer'); let h = '';
+            programs.forEach(p => {
+                h += `<div class="glass-card"><h2 style="color:var(--blue); border-color:var(--blue);">${p.title}</h2>`;
+                p.days.forEach(d => {
+                    h += `<div class="day-header" onclick="toggleDay(this)"><h3>${d.name}</h3><i class="fas fa-chevron-down"></i></div><div class="day-content">`;
+                    if(d.exercises.length === 0) {
+                        h += `<div class="rest-day">🛌 يوم راحة - استرح عشان عضلاتك تتعافى</div>`;
+                    } else {
+                        d.exercises.forEach(e => {
+                            let videoBtn = e.video ? `<a href="${e.video}" target="_blank" class="ex-btn"><i class="fab fa-youtube"></i> شوف التكنيك</a>` : '';
+                            let setsInfo = e.sets ? `${e.sets} × ${e.reps}` : '';
+                            h += `<div class="exercise-row"><div class="ex-name">${e.en} <span>(${e.ar})</span></div><div class="ex-details"><span class="ex-sets">${setsInfo} | ${e.target}</span>${videoBtn}</div></div>`;
+                        });
+                    }
+                    h += `</div>`;
+                }); h += `</div>`;
+            }); c.innerHTML = h;
+        }
+        function renderMuscles() {
+            const c = document.getElementById('musclesContainer'); let h = '';
+            muscleGroups.forEach(g => {
+                h += `<div class="glass-card"><h2 style="color:#fff; border-color:var(--blue);">${g.title}</h2>`;
+                g.exercises.forEach(e => {
+                    let videoBtn = e.video ? `<a href="${e.video}" target="_blank" class="ex-btn"><i class="fab fa-youtube"></i> شوف التكنيك</a>` : '';
+                    h += `<div class="exercise-row"><div class="ex-name">${e.en} <span>(${e.ar})</span></div><div class="ex-details"><span class="ex-sets">${e.target}</span>${videoBtn}</div></div>`;
+                }); h += `</div>`;
+            }); c.innerHTML = h;
+        }
+        function toggleDay(el) { el.classList.toggle("active"); let c = el.nextElementSibling; c.style.display = c.style.display === "block" ? "none" : "block"; }
+
+        let currentMacro = 'protein';
+        const foodsData = {
+            protein: [
+                {en:"Chicken Breast", ar:"صدر دجاج مشوي", emoji:"🍗", cal:165, p:31, c:0, f:3.6}, 
+                {en:"Boiled Eggs", ar:"بيض مسلوق", emoji:"🥚", cal:155, p:13, c:1.1, f:11}, 
+                {en:"Tuna Can", ar:"تونة معلبة", emoji:"🐟", cal:120, p:26, c:0, f:1},
+                {en:"Greek Yogurt", ar:"زبادي يوناني", emoji:"🥛", cal:100, p:17, c:6, f:0.7}, 
+                {en:"Beef Steak", ar:"ستيك لحم", emoji:"🥩", cal:271, p:26, c:0, f:18}, 
+                {en:"Turkey Breast", ar:"صدر ديك رومي", emoji:"🦃", cal:135, p:30, c:0, f:1},
+                {en:"Shrimp", ar:"جمبري", emoji:"🦐", cal:99, p:24, c:0.2, f:0.3}, 
+                {en:"Cottage Cheese", ar:"جبنة قريش", emoji:"🧀", cal:98, p:11, c:3.4, f:4.3}, 
+                {en:"Salmon", ar:"سلمون", emoji:"🍣", cal:208, p:20, c:0, f:13},
+                {en:"Lentils", ar:"عدس", emoji:"🥣", cal:116, p:9, c:20, f:0.4}, 
+                {en:"Chickpeas", ar:"حمص", emoji:"🟡", cal:164, p:8.9, c:27, f:2.6}, 
+                {en:"Protein Shake", ar:"بروتين شيك", emoji:"🥤", cal:120, p:24, c:3, f:1.5}
+            ],
+            carb: [
+                {en:"Rice (Cooked)", ar:"أرز مطبوخ", emoji:"🍚", cal:130, p:2.7, c:28, f:0.3}, 
+                {en:"Oats", ar:"شوفان", emoji:"🥣", cal:150, p:5, c:27, f:3}, 
+                {en:"Sweet Potato", ar:"بطاطا حلوة", emoji:"🍠", cal:86, p:1.6, c:20, f:0.1},
+                {en:"Banana", ar:"موز", emoji:"🍌", cal:105, p:1.3, c:27, f:0.4}, 
+                {en:"Pasta", ar:"مكرونة", emoji:"🍝", cal:131, p:5, c:25, f:1.1}, 
+                {en:"Whole Wheat Bread", ar:"خبز أسمر", emoji:"🍞", cal:69, p:3.6, c:12, f:1.1},
+                {en:"Quinoa", ar:"كينوا", emoji:"🌱", cal:120, p:4.4, c:21, f:1.9}, 
+                {en:"Dates", ar:"تمر", emoji:"🌴", cal:282, p:2.5, c:75, f:0.4}, 
+                {en:"Apple", ar:"تفاح", emoji:"🍎", cal:95, p:0.5, c:25, f:0.3}
+            ],
+            fat: [
+                {en:"Almonds", ar:"لوز", emoji:"🌰", cal:164, p:6, c:6, f:14}, 
+                {en:"Peanut Butter", ar:"زبدة فول سوداني", emoji:"🥜", cal:190, p:7, c:6, f:16}, 
+                {en:"Avocado", ar:"أفوكادو", emoji:"🥑", cal:160, p:2, c:9, f:15},
+                {en:"Olive Oil", ar:"زيت زيتون", emoji:"🫒", cal:119, p:0, c:0, f:14}, 
+                {en:"Walnuts", ar:"جوز", emoji:"🥜", cal:185, p:4.3, c:3.9, f:18.5}, 
+                {en:"Chia Seeds", ar:"بذور شيا", emoji:"⚫", cal:138, p:5, c:12, f:9},
+                {en:"Cashews", ar:"كاجو", emoji:"🥜", cal:157, p:5, c:9, f:12}, 
+                {en:"Dark Chocolate", ar:"شوكولاتة داكنة", emoji:"🍫", cal:170, p:2.2, c:13, f:12}
+            ]
+        };
+        function setMacroFilter(filter, btn) { currentMacro = filter; document.querySelectorAll('.macro-tab').forEach(b => b.classList.remove('active')); btn.classList.add('active'); renderFoods(); }
+        function renderFoods() {
+            const grid = document.getElementById('foodGrid'); let h = '';
+            foodsData[currentMacro].forEach(food => { 
+                h += `<div class="food-card"><div class="food-emoji">${food.emoji}</div><div class="food-title">${food.en} <span>(${food.ar})</span></div><div class="food-cal">${food.cal} kcal</div><div class="food-macros">بروتين: ${food.p}g | كارب: ${food.c}g | دهون: ${food.f}g</div></div>`; 
+            });
+            grid.innerHTML = h;
         }
 
-        var mybutton = document.getElementById("myBtn");
-        function scrollFunction() {
-            if (document.body.scrollTop > 500 || document.documentElement.scrollTop > 500) {
-                mybutton.style.display = "block";
-            } else {
-                mybutton.style.display = "none";
-            }
-        }
-        function topFunction() {
-            document.body.scrollTop = 0;
-            document.documentElement.scrollTop = 0;
-        }
-
-        function toggleNav() {
-            var sidenav = document.getElementById("mySidenav");
-            if (sidenav.style.width === "250px") {
-                sidenav.style.width = "0";
-            } else {
-                sidenav.style.width = "250px";
-            }
-        }
-        function closeNav() {
-            document.getElementById("mySidenav").style.width = "0";
-        }
-
-        function toggleSearch() {
-            var x = document.getElementById("searchBox");
-            if (x.style.display === "block") {
-                x.style.display = "none";
-            } else {
-                x.style.display = "block";
-                document.getElementById("searchInput").focus();
-            }
-        }
-        function searchContent() {
-            var filter = document.getElementById("searchInput").value.toLowerCase();
-            var sections = document.getElementsByTagName("section");
-            for (var i = 0; i < sections.length; i++) {
-                if (sections[i].innerText.toLowerCase().includes(filter)) {
-                    sections[i].style.display = "";
-                } else {
-                    sections[i].style.display = "none";
+        // --- New Meals Section Logic ---
+        const mealsData = {
+            breakfast: [
+                {
+                    title: "أومليت الخضروات والجبن",
+                    ingredients: ["3 بيضات", "50 جرام سبانخ", "30 جرام جبن قليل الدسم", "نصف حبة فلفل حلو", "ملعقة صغيرة زيت زيتون"],
+                    method: "اخفق البيض مع الخضروات ثم اطهها في مقلاة غير لاصقة وأضف الجبن في النهاية.",
+                    benefits: "وجبة غنية بالبروتين والدهون الصحية وتساعد على الشعور بالشبع لفترة طويلة."
+                },
+                {
+                    title: "الشوفان بالموز وزبدة الفول السوداني",
+                    ingredients: ["80 جرام شوفان", "موزة متوسطة", "ملعقة كبيرة زبدة فول سوداني", "كوب حليب", "ملعقة صغيرة عسل"],
+                    method: "يُطهى الشوفان مع الحليب ثم تضاف باقي المكونات.",
+                    benefits: "مصدر ممتاز للطاقة قبل التمارين."
+                },
+                {
+                    title: "توست الأفوكادو مع البيض",
+                    ingredients: ["شريحتان خبز كامل", "نصف حبة أفوكادو", "بيضتان", "رشة فلفل أسود"],
+                    method: "يُهرس الأفوكادو ويوضع فوق الخبز، ثم يضاف البيض المسلوق أو المقلي.",
+                    benefits: "مصدر ممتاز للدهون الصحية والبروتين."
+                },
+                {
+                    title: "بانكيك البروتين",
+                    ingredients: ["بيضتان", "موزة", "50 جرام شوفان", "نصف سكوب بروتين"],
+                    method: "تخلط المكونات وتطهى في مقلاة غير لاصقة.",
+                    benefits: "وجبة مناسبة قبل أو بعد التمرين."
+                },
+                {
+                    title: "الزبادي اليوناني بالفواكه والجرانولا",
+                    ingredients: ["200 جرام زبادي يوناني", "100 جرام توت مشكل", "40 جرام جرانولا", "ملعقة صغيرة عسل"],
+                    benefits: "وجبة سريعة وغنية بالبروتين."
                 }
+            ],
+            lunch: [
+                {
+                    title: "صدر الدجاج مع الأرز البني",
+                    ingredients: ["200 جرام صدر دجاج", "100 جرام أرز بني", "سلطة خضراء", "ملعقة زيت زيتون"],
+                    method: "يشوى الدجاج ويقدم مع الأرز والخضروات.",
+                    benefits: "من أفضل الوجبات لبناء العضلات."
+                },
+                {
+                    title: "راب الدجاج بالخضروات",
+                    ingredients: ["خبز تورتيلا كامل", "150 جرام دجاج مشوي", "خس", "خيار", "طماطم", "حمص"],
+                    benefits: "وجبة متوازنة وسهلة الحمل."
+                },
+                {
+                    title: "سلطة التونة والأفوكادو",
+                    ingredients: ["150 جرام تونة", "نصف حبة أفوكادو", "طماطم كرزية", "خيار", "زيت زيتون"],
+                    benefits: "غنية بالأوميغا 3 والبروتين."
+                },
+                {
+                    title: "سلطة الكينوا والفاصوليا السوداء",
+                    ingredients: ["80 جرام كينوا", "فاصوليا سوداء", "ذرة", "أفوكادو", "عصير ليمون"],
+                    benefits: "مصدر ممتاز للألياف والكربوهيدرات المعقدة."
+                },
+                {
+                    title: "سلطة السيزر بالدجاج",
+                    ingredients: ["200 جرام دجاج مشوي", "خس روماني", "جبن بارميزان", "طماطم كرزية", "صلصة سيزر خفيفة"],
+                    benefits: "وجبة عالية البروتين ومنخفضة السعرات."
+                }
+            ],
+            dinner: [
+                {
+                    title: "سمك السلمون مع البطاطس الحلوة",
+                    ingredients: ["200 جرام سلمون", "250 جرام بطاطس حلوة", "بروكلي"],
+                    benefits: "مصدر ممتاز للأوميغا 3 والبروتين."
+                },
+                {
+                    title: "لحم بقري مع الأرز البني والخضروات",
+                    ingredients: ["200 جرام لحم بقري", "100 جرام أرز بني", "بروكلي", "فلفل حلو"],
+                    benefits: "يساعد على زيادة الكتلة العضلية."
+                },
+                {
+                    title: "كرات لحم الديك الرومي مع المعكرونة الكاملة",
+                    ingredients: ["200 جرام ديك رومي", "100 جرام معكرونة كاملة", "صلصة مارينارا"],
+                    benefits: "وجبة متوازنة وغنية بالبروتين."
+                },
+                {
+                    title: "أسياخ الدجاج والخضروات",
+                    ingredients: ["200 جرام دجاج", "فلفل حلو", "كوسة", "بصل"],
+                    benefits: "وجبة صحية قليلة الدهون."
+                },
+                {
+                    title: "الجمبري مع الأرز والخضروات",
+                    ingredients: ["200 جرام جمبري", "100 جرام أرز", "خضروات مشكلة"],
+                    benefits: "مصدر بروتين عالي وسعرات معتدلة."
+                }
+            ],
+            snacks: [
+                "التفاح مع زبدة الفول السوداني", "الزبادي اليوناني بالعسل", "المكسرات المشكلة", 
+                "سموثي الفواكه", "أعواد الجزر مع الحمص", "الجبن القريش مع الفواكه", 
+                "الشوكولاتة الداكنة مع اللوز", "الموز مع اللوز", "التمر مع زبدة الفول السوداني", 
+                "مخفوق البروتين مع الشوفان"
+            ],
+            recipes: [
+                "أرز بالدجاج والكاري", "دجاج ترياكي مع الخضروات", "باستا الدجاج بالكريمة الخفيفة", 
+                "ساندويتش الديك الرومي والأفوكادو", "سمك القد المشوي مع البطاطس", "سلطة السلمون المدخن", 
+                "برجر اللحم المنزلي", "بيتزا البروتين الصحية", "شوفان البروتين بالشوكولاتة", 
+                "أرز التونة والخضروات", "فاهيتا الدجاج", "تشيلي اللحم والفاصوليا", "سلطة البيض والأفوكادو", 
+                "دجاج بالليمون والأعشاب", "شاورما الدجاج الصحية", "لازانيا البروتين", 
+                "برجر الدجاج المشوي", "ستيك اللحم مع البطاطس", "أرز الجمبري بالخضروات", "سلطة الفاصوليا البيضاء والتونة"
+            ],
+            drinks: [
+                "سموثي الموز والشوفان", "سموثي التوت والزبادي اليوناني", "عصير البرتقال الطبيعي", 
+                "سموثي الفراولة والموز", "الحليب بالشوكولاتة بعد التمرين", "القهوة السوداء", 
+                "الشاي الأخضر", "الماء مع الليمون والنعناع", "مخفوق البروتين بالفواكه", "عصير البطيخ الطبيعي"
+            ],
+            disclaimer: `
+                <div class="disclaimer-box">
+                    <h4><i class="fas fa-exclamation-triangle"></i> تنويه مهم</h4>
+                    <p>المعلومات والوصفات الغذائية المقدمة في هذا الموقع مخصصة لأغراض تثقيفية وإرشادية عامة، وتهدف إلى تقديم أفكار واقتراحات لوجبات صحية تدعم أهداف اللياقة البدنية المختلفة، سواء كان الهدف بناء العضلات، خسارة الدهون أو الحفاظ على الوزن.</p>
+                    <p>يرجى ملاحظة أن الاحتياجات الغذائية تختلف من شخص لآخر بناءً على عدة عوامل، مثل العمر، الجنس، الوزن، الطول، مستوى النشاط البدني، الحالة الصحية والأهداف الشخصية، لذلك قد لا تكون جميع الوجبات أو الكميات المذكورة مناسبة للجميع.</p>
+                    <p>جميع الوجبات والوصفات الموجودة في الموقع هي أمثلة واقتراحات قابلة للتعديل والاستبدال حسب تفضيلاتك الغذائية واحتياجاتك اليومية، وليست نظامًا غذائيًا إلزاميًا يجب اتباعه حرفيًا.</p>
+                    <p>لا يُعتبر المحتوى الموجود في الموقع بديلاً عن الاستشارة الطبية أو استشارة اختصاصي التغذية المؤهل. إذا كنت تعاني من أي حالة صحية، أو حساسية تجاه بعض الأطعمة، أو تتبع نظامًا غذائيًا خاصًا، فيُنصح باستشارة مختص قبل إجراء أي تغييرات كبيرة على نظامك الغذائي.</p>
+                    <p>كما أن النتائج تختلف من شخص لآخر، وتعتمد على عوامل متعددة تشمل الالتزام بالتغذية، جودة النوم، مستوى النشاط البدني، شدة التمارين والعوامل الوراثية.</p>
+                    <p>يُنصح دائمًا بالاعتماد على التنوع الغذائي، وشرب كميات كافية من الماء، والحصول على قسط كافٍ من النوم، وممارسة النشاط البدني بانتظام للوصول إلى أفضل النتائج الصحية والرياضية.</p>
+                    <p>باستخدامك لهذا الموقع، فإنك تقر بأن مسؤولية تطبيق المعلومات والوصفات الغذائية تقع على عاتقك الشخصي، وأن إدارة الموقع غير مسؤولة عن أي نتائج أو آثار قد تنتج عن سوء الاستخدام أو عدم ملاءمة بعض الأطعمة أو الأنظمة الغذائية لحالتك الفردية.</p>
+                    <p>نهدف من خلال هذا المحتوى إلى مساعدتك على بناء أسلوب حياة صحي وتقديم أفكار متنوعة تسهّل عليك الوصول إلى أهدافك الرياضية بطريقة عملية ومتوازنة.</p>
+                </div>
+            `
+        };
+
+        let currentMealCategory = 'breakfast';
+        function setMealCategory(cat, btn) {
+            currentMealCategory = cat;
+            document.querySelectorAll('.meal-tab').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            renderMeals();
+        }
+        function renderMeals() {
+            const container = document.getElementById('mealsContainer');
+            let html = '';
+
+            if (currentMealCategory === 'disclaimer') {
+                html = mealsData.disclaimer;
+            } else if (['snacks', 'recipes', 'drinks'].includes(currentMealCategory)) {
+                // Render as compact grid for simple lists
+                const items = mealsData[currentMealCategory];
+                html = '<div class="compact-list" style="grid-column: 1 / -1;">';
+                items.forEach(item => {
+                    html += `<div class="compact-item">${item}</div>`;
+                });
+                html += '</div>';
+            } else {
+                // Render as detailed cards
+                const items = mealsData[currentMealCategory];
+                items.forEach(meal => {
+                    let ingHtml = meal.ingredients ? `<ul class="ingredient-list">${meal.ingredients.map(i => `<li>${i}</li>`).join('')}</ul>` : '';
+                    let methodHtml = meal.method ? `<p><span class="meal-section-title">طريقة التحضير:</span> ${meal.method}</p>` : '';
+                    
+                    html += `
+                    <div class="meal-card">
+                        <h3>${meal.title}</h3>
+                        ${ingHtml}
+                        ${methodHtml}
+                        <div class="benefit-box">
+                            <strong><i class="fas fa-heartbeat"></i> الفوائد:</strong>
+                            <p>${meal.benefits}</p>
+                        </div>
+                    </div>
+                    `;
+                });
             }
+            container.innerHTML = html;
         }
 
-        function calculateTDEE() {
-            const weight = parseFloat(document.getElementById('calcWeight').value);
-            const height = parseFloat(document.getElementById('calcHeight').value);
-            const age = parseFloat(document.getElementById('calcAge').value);
-            const activity = parseFloat(document.getElementById('calcActivity').value);
-            const goal = parseFloat(document.getElementById('calcGoal').value);
-
-            if(isNaN(weight) || isNaN(height) || isNaN(age)) {
-                alert('يا وحش، لازم تكتب الوزن والطول والعمر عشان نحسب لك!');
-                return;
-            }
-
-            const bmr = (10 * weight) + (6.25 * height) - (5 * age) + 5;
-            const tdee = bmr * activity;
-            const target = tdee + goal;
-            
-            const protein = weight * 2; 
-            const fats = weight * 1;    
-            const carbs = (target - (protein * 4) - (fats * 9)) / 4; 
-
-            document.getElementById('resBMR').innerText = Math.round(bmr);
-            document.getElementById('resTDEE').innerText = Math.round(tdee);
-            document.getElementById('resTarget').innerText = Math.round(target);
-            document.getElementById('resProtein').innerText = Math.round(protein);
-            document.getElementById('resFats').innerText = Math.round(fats);
-            document.getElementById('resCarbs').innerText = Math.round(carbs);
-
-            document.getElementById('calcResults').style.display = 'block';
+        const days = ['sat', 'sun', 'mon', 'tue', 'wed', 'thu', 'fri'];
+        function initWeekly() {
+            const saved = JSON.parse(localStorage.getItem('fz_weekly')) || {};
+            days.forEach(day => {
+                if(saved['w_'+day]) document.getElementById('w_'+day).value = saved['w_'+day];
+                if(saved['m_'+day]) document.getElementById('m_'+day).value = saved['m_'+day];
+                if(saved['e_'+day]) document.getElementById('e_'+day).value = saved['e_'+day];
+            });
         }
+        function saveWeekly() {
+            const data = {};
+            days.forEach(day => {
+                data['w_'+day] = document.getElementById('w_'+day).value;
+                data['m_'+day] = document.getElementById('m_'+day).value;
+                data['e_'+day] = document.getElementById('e_'+day).value;
+            });
+            localStorage.setItem('fz_weekly', JSON.stringify(data));
+        }
+
+        window.onload = function() { renderPrograms(); renderMuscles(); renderFoods(); renderMeals(); initWeekly(); };
     </script>
 </body>
 </html>
