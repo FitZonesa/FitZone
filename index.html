@@ -44,6 +44,8 @@
         th { background-color: rgba(0,212,255,0.2); color: var(--blue); font-weight: 700; }
         td { background-color: rgba(0,0,0,0.3); color: #fff; }
         #myBtn { display: none; position: fixed; bottom: 30px; left: 30px; z-index: 99; font-size: 18px; border: none; outline: none; background-color: var(--blue); color: #000; cursor: pointer; padding: 15px; border-radius: 50%; }
+        .calc-btn { width: 100%; margin-top: 15px; padding: 12px; background: var(--blue); color: #000; font-family: 'Cairo'; font-weight: 700; font-size: 16px; border: none; border-radius: 8px; cursor: pointer; transition: 0.2s; }
+        .calc-btn:hover { background: #fff; }
         
         /* Quick Access Buttons */
         .quick-access-container { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-top: 40px; padding: 0 20px; }
@@ -81,7 +83,7 @@
         .benefit-box strong { color: var(--green); display: block; font-size: 13px; margin-bottom: 3px; }
         .benefit-box p { margin: 0; font-size: 13px; }
         
-        /* Compact List for simple items (Snacks, Drinks Ideas) */
+        /* Compact List for simple items */
         .compact-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; }
         .compact-item { background: #222; padding: 10px; border-radius: 8px; text-align: center; color: #fff; font-weight: 600; border: 1px solid transparent; transition: 0.2s; }
         .compact-item:hover { border-color: var(--blue); background: #2a2a2a; }
@@ -109,6 +111,23 @@
         .social-icon:hover { background: var(--blue); transform: translateY(-5px); border-color: var(--blue); }
         .social-icon:hover i, .social-icon:hover span { color: #000; }
         .social-icon span { font-size: 14px; font-weight: 600; }
+
+        /* Macro Calculator Custom */
+        .calc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        .calc-grid .full-width { grid-column: span 2; }
+        .result-box { background: rgba(0,0,0,0.3); padding: 15px; border-radius: 10px; min-width: 110px; border: 1px solid #333; text-align: center; transition: 0.3s; }
+        .result-box:hover { transform: translateY(-5px); box-shadow: 0 5px 15px rgba(0,0,0,0.5); }
+        .res-cal { border-color: var(--blue); }
+        .res-protein { border-color: var(--red); }
+        .res-carbs { border-color: #ffc107; }
+        .res-fats { border-color: var(--green); }
+        .res-cal .res-num { color: var(--blue); }
+        .res-protein .res-num { color: var(--red); }
+        .res-carbs .res-num { color: #ffc107; }
+        .res-fats .res-num { color: var(--green); }
+        .res-num { font-size: 26px; font-weight: 900; margin-bottom: 5px; }
+        .res-label { font-size: 13px; color: #aaa; }
+        .calc-note { text-align: center; color: #888; font-size: 12px; margin-top: 15px; line-height: 1.5; }
 
         /* Responsive Design for Mobile */
         @media (max-width: 768px) {
@@ -138,6 +157,9 @@
             .social-links { flex-direction: column; align-items: center; width: 100%; }
             .social-icon { width: 100%; flex-direction: row; justify-content: center; gap: 10px; min-width: auto; }
             .social-icon i { margin-bottom: 0; }
+            .calc-grid { grid-template-columns: 1fr; }
+            .calc-grid .full-width { grid-column: span 1; }
+            .result-box { min-width: auto; width: 100%; }
         }
         @media (max-width: 480px) {
             h1 { font-size: 20px; }
@@ -158,6 +180,7 @@
         <a href="#tips" onclick="closeNav()">🏆 النصائح الذهبية</a>
         <a href="#programs" onclick="closeNav()">📋 جداول التمارين</a>
         <a href="#muscles" onclick="closeNav()">💪 تمارين حسب العضلة</a>
+        <a href="#macroCalc" onclick="closeNav()">⚖️ حاسبة الماكروز</a>
         <a href="#meals" onclick="closeNav()">🥗 الوجبات الصحية</a>
         <a href="#nutrition" onclick="closeNav()">🍽️ التغذية حسب الماكرو</a>
         <a href="#weeklyTracker" onclick="closeNav()">📊 الجدول الأسبوعي</a>
@@ -405,6 +428,77 @@
         <!-- MUSCLES -->
         <section id="muscles"><h1>💪 تمارين حسب العضلة</h1><div id="musclesContainer"></div></section>
 
+        <!-- MACRO CALCULATOR -->
+        <section id="macroCalc">
+            <h1>⚖️ حاسبة الماكروز (Macro Calculator)</h1>
+            <p style="text-align:center; color:#aaa; margin-bottom:20px;">احسب احتياجك اليومي من السعرات الحرارية والبروتين والكارب والدهون بشكل علمي دقيق</p>
+            <div class="glass-card" style="max-width: 700px; margin: 0 auto;">
+                <div class="calc-grid">
+                    <div class="full-width">
+                        <label style="display:block; margin-bottom:5px; font-weight:bold; font-size:14px;">الجنس (Gender)</label>
+                        <select id="calcGender" class="tracker-input" style="padding: 10px; text-align: right;">
+                            <option value="male">ذكر (Male)</option>
+                            <option value="female">أنثى (Female)</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label style="display:block; margin-bottom:5px; font-weight:bold; font-size:14px;">العمر (Age)</label>
+                        <input type="number" id="calcAge" class="tracker-input" placeholder="مثال: 25">
+                    </div>
+                    <div>
+                        <label style="display:block; margin-bottom:5px; font-weight:bold; font-size:14px;">الوزن كجم (Weight)</label>
+                        <input type="number" id="calcWeight" class="tracker-input" placeholder="مثال: 80">
+                    </div>
+                    <div>
+                        <label style="display:block; margin-bottom:5px; font-weight:bold; font-size:14px;">الطول سم (Height)</label>
+                        <input type="number" id="calcHeight" class="tracker-input" placeholder="مثال: 175">
+                    </div>
+                    <div>
+                        <label style="display:block; margin-bottom:5px; font-weight:bold; font-size:14px;">مستوى النشاط (Activity)</label>
+                        <select id="calcActivity" class="tracker-input" style="padding: 10px; text-align: right;">
+                            <option value="1.2">قليل الحركة (Sedentary)</option>
+                            <option value="1.375">نشاط خفيف (Light)</option>
+                            <option value="1.55" selected>نشاط متوسط (Moderate)</option>
+                            <option value="1.725">نشاط عالي (Active)</option>
+                            <option value="1.9">نشاط عالي جداً (Very Active)</option>
+                        </select>
+                    </div>
+                    <div class="full-width">
+                        <label style="display:block; margin-bottom:5px; font-weight:bold; font-size:14px;">هدفك (Goal)</label>
+                        <select id="calcGoal" class="tracker-input" style="padding: 10px; text-align: right;">
+                            <option value="lose">خسارة دهون (Lose Fat)</option>
+                            <option value="maintain">حفظ الوزن (Maintain)</option>
+                            <option value="gain">بناء عضلات (Build Muscle)</option>
+                        </select>
+                    </div>
+                </div>
+                <button onclick="calculateMacros()" class="calc-btn" style="margin-top: 20px;">احسب الماكروز (Calculate)</button>
+                
+                <div id="macroResults" style="display:none; margin-top: 25px; text-align: center;">
+                    <h3 style="color: var(--blue); margin-bottom: 15px;">نتائجك اليومية المعتمدة علمياً</h3>
+                    <div style="display: flex; justify-content: center; gap: 15px; flex-wrap: wrap;">
+                        <div class="result-box res-cal">
+                            <div class="res-num" id="resCalories">0</div>
+                            <div class="res-label">سعرة (Kcal)</div>
+                        </div>
+                        <div class="result-box res-protein">
+                            <div class="res-num" id="resProtein">0g</div>
+                            <div class="res-label">بروتين (Protein)</div>
+                        </div>
+                        <div class="result-box res-carbs">
+                            <div class="res-num" id="resCarbs">0g</div>
+                            <div class="res-label">كارب (Carbs)</div>
+                        </div>
+                        <div class="result-box res-fats">
+                            <div class="res-num" id="resFats">0g</div>
+                            <div class="res-label">دهون (Fats)</div>
+                        </div>
+                    </div>
+                    <p class="calc-note" id="calcNote"></p>
+                </div>
+            </div>
+        </section>
+
         <!-- MEALS -->
         <section id="meals">
             <h1>🥗 الوجبات الصحية</h1>
@@ -488,7 +582,7 @@
             <div style="margin-top: 40px;">
                 <a onclick="topFunction()" style="background: var(--blue); color: #000; padding: 15px 30px; border-radius: 50px; font-weight: 900; font-size: 18px; cursor: pointer;">يرجعك للأعلى يا بطل ☝️</a>
             </div>
-            <div style="margin-top: 60px; border-top: 1px solid #333; padding-top: 20px; color: #555; font-size: 14px;">FitZone &copy; 26</div>
+            <div style="margin-top: 60px; border-top: 1px solid #333; padding-top: 20px; color: #555; font-size: 14px;">FitZone &copy; 2026</div>
         </section>
 
         <!-- SOCIAL CONTACT FOOTER -->
@@ -514,7 +608,6 @@
         window.onscroll = function() { var h = document.documentElement.scrollHeight - document.documentElement.clientHeight; var s = (document.documentElement.scrollTop / h) * 100; document.getElementById("myBar").style.width = s + "%"; document.getElementById("myBtn").style.display = document.documentElement.scrollTop > 20 ? "block" : "none"; };
         function topFunction() { document.documentElement.scrollTop = 0; }
 
-        // Updated Video Links for Calisthenics
         const videoLinks = {
             "Machine Fly": "https://youtube.com/shorts/a9vQ_hwIksU", "Incline Smith Machine Press": "https://youtube.com/shorts/VXaBbUYMfIs", "Chest Press": "https://youtube.com/shorts/Qu7-ceCvq7w",
             "Incline Dumbbell Press": "https://youtube.com/shorts/8fXfwG4ftaQ", "Cable Crossover": "https://youtube.com/shorts/I-Ue34qLxc4", "Shoulder Press": "https://youtube.com/shorts/k6tzKisR3NY",
@@ -561,9 +654,10 @@
                 { name: "Day 6: Pull 2", exercises: [ex("Dumbbell Row","تجديف دمبل",4,"8-10","Back"), ex("Lat Pulldown","سحب أمامي",3,"10-12","Back"), ex("Shrugs","ترابيس",3,"12-15","Traps"), ex("Biceps Curl","بايسبس",3,"10-12","Biceps")]},
                 { name: "Day 7: Legs 2", exercises: [ex("Back Extension","أسفل الظهر",3,"12-15","Lower Back"), ex("Inner Thigh Machine","فخذ داخلي",3,"12-15","Adductors"), ex("Standing Calf Raise","بطات",4,"15-20","Calves"), ex("Abs Workout","بطن",4,"15-20","Abs")]}
             ]},
-            { title: "Beginner Program (3 Days Full Body)", days: [
+            { title: "برنامج المبتدئين (3 أيام كامل الجسم) / Beginner Program (3 Days Full Body)", days: [
                 { name: "Day 1", exercises: [ex("Chest Press","ضغط صدر",3,"10-12","Chest"), ex("Lat Pulldown","سحب أمامي",3,"10-12","Back"), ex("Leg Press","ضغط أرجل",3,"10-12","Legs"), ex("Shoulder Press","ضغط كتف",3,"10-12","Shoulders"), ex("Triceps Pushdown","ترايسبس",2,"12-15","Triceps"), ex("Biceps Curl","بايسبس",2,"12-15","Biceps")]},
-                { name: "Day 2", exercises: [ex("Incline Dumbbell Press","ضغط دمبل مائل",3,"10-12","Chest"), ex("Seated Cable Row","سحب أرضي",3,"10-12","Back"), ex("Leg Extension","تمديد فخذ",3,"12-15","Quads"), ex("Lateral Raise","رفرفة جانبية",3,"12-15","Shoulders"), ex("Abs Workout","بطن",3,"15-20","Abs")]}
+                { name: "Day 2", exercises: [ex("Incline Dumbbell Press","ضغط دمبل مائل",3,"10-12","Chest"), ex("Seated Cable Row","سحب أرضي",3,"10-12","Back"), ex("Leg Extension","تمديد فخذ",3,"12-15","Quads"), ex("Lateral Raise","رفرفة جانبية",3,"12-15","Shoulders"), ex("Abs Workout","بطن",3,"15-20","Abs")]},
+                { name: "Day 3", exercises: [ex("Chest Press","ضغط صدر",3,"10-12","Chest"), ex("Lat Pulldown","سحب أمامي",3,"10-12","Back"), ex("Leg Press","ضغط أرجل",3,"10-12","Legs"), ex("Lateral Raise","رفرفة جانبية",3,"12-15","Shoulders"), ex("Biceps Curl","بايسبس",2,"12-15","Biceps"), ex("Triceps Pushdown","ترايسبس",2,"12-15","Triceps")]}
             ]},
             { title: "Calisthenics (تمارين الوزن الجسدي)", days: [
                 { name: "Day 1: Upper Body", exercises: [ex("Push-ups","ضغط (Push-ups)",4,"حتى الفشل","Chest"), ex("Pull-ups","جذب بالبار (Pull-ups)",4,"حتى الفشل","Back"), ex("Chair Dips","غمس على كرسي (Chair Dips)",4,"15-20","Triceps"), ex("Plank","اللوح (Plank)",3,"60 ثانية","Core")]},
@@ -658,126 +752,104 @@
             grid.innerHTML = h;
         }
 
-        // --- New Meals Section Logic ---
+        // Macro Calculator Logic
+        function calculateMacros() {
+            const gender = document.getElementById('calcGender').value;
+            const age = parseInt(document.getElementById('calcAge').value);
+            const weight = parseFloat(document.getElementById('calcWeight').value);
+            const height = parseFloat(document.getElementById('calcHeight').value);
+            const activity = parseFloat(document.getElementById('calcActivity').value);
+            const goal = document.getElementById('calcGoal').value;
+
+            if (!age || !weight || !height) {
+                alert("الرجاء إدخال العمر والوزن والطول بشكل صحيح / Please enter valid Age, Weight, and Height");
+                return;
+            }
+
+            // Mifflin-St Jeor Equation for BMR
+            let bmr;
+            if (gender === 'male') {
+                bmr = (10 * weight) + (6.25 * height) - (5 * age) + 5;
+            } else {
+                bmr = (10 * weight) + (6.25 * height) - (5 * age) - 161;
+            }
+
+            let tdee = bmr * activity;
+            let calories = tdee;
+
+            if (goal === 'lose') {
+                calories = tdee - 500;
+            } else if (goal === 'gain') {
+                calories = tdee + 300;
+            }
+
+            // Modern Weight-Based Macro Allocation System (Scientific Standard)
+            let proteinGrams = 0;
+            if (goal === 'lose') {
+                // Higher protein during deficit to preserve lean tissue
+                proteinGrams = weight * 2.2; 
+            } else {
+                // Bulk / Maintenance standard hypertrophy target
+                proteinGrams = weight * 2.0; 
+            }
+
+            // 1. Calculate Protein Calories (1g = 4 Kcal)
+            let proteinCalories = proteinGrams * 4;
+
+            // Ensure protein does not exceed a safe 45% of total calories in extreme calorie deficits
+            if (proteinCalories > (calories * 0.45)) {
+                proteinGrams = (calories * 0.45) / 4;
+                proteinCalories = proteinGrams * 4;
+            }
+
+            // 2. Calculate Fat Calories (Standard 25% of total energy for hormonal efficiency)
+            let fatCalories = calories * 0.25;
+            let fatGrams = fatCalories / 9; // (1g = 9 Kcal)
+
+            // 3. Carbohydrates consume the remaining daily calories (1g = 4 Kcal)
+            let carbCalories = calories - (proteinCalories + fatCalories);
+            let carbGrams = carbCalories / 4;
+
+            // Render results
+            document.getElementById('resCalories').innerText = Math.round(calories);
+            document.getElementById('resProtein').innerText = Math.round(proteinGrams) + 'g';
+            document.getElementById('resCarbs').innerText = Math.round(carbGrams) + 'g';
+            document.getElementById('resFats').innerText = Math.round(fatGrams) + 'g';
+
+            // Explanatory note for the user
+            let noteText = `تم تطبيق الحساب الوزني المعتمد علمياً: تم تحديد كمية البروتين بناءً على وزنك الفعلي بمعدل (${goal === 'lose' ? '2.2g' : '2g'} لكل كجم) لحماية عضلاتك، وحساب الدهون بنسبة 25% من الطاقة لاستقرار الهرمونات، وتحويل باقي السعرات بالكامل لكربوهيدرات لتشغيل مستويات الطاقة في النادي.`;
+            document.getElementById('calcNote').innerText = noteText;
+
+            document.getElementById('macroResults').style.display = 'block';
+        }
+
+        // Meals Data & Logic
         const mealsData = {
             breakfast: [
-                {
-                    title: "أومليت الخضروات والجبن",
-                    ingredients: ["3 بيضات", "50 جرام سبانخ", "30 جرام جبن قليل الدسم", "نصف حبة فلفل حلو", "ملعقة صغيرة زيت زيتون"],
-                    method: "اخفق البيض مع الخضروات ثم اطهها في مقلاة غير لاصقة وأضف الجبن في النهاية.",
-                    benefits: "وجبة غنية بالبروتين والدهون الصحية وتساعد على الشعور بالشبع لفترة طويلة."
-                },
-                {
-                    title: "الشوفان بالموز وزبدة الفول السوداني",
-                    ingredients: ["80 جرام شوفان", "موزة متوسطة", "ملعقة كبيرة زبدة فول سوداني", "كوب حليب", "ملعقة صغيرة عسل"],
-                    method: "يُطهى الشوفان مع الحليب ثم تضاف باقي المكونات.",
-                    benefits: "مصدر ممتاز للطاقة قبل التمارين."
-                },
-                {
-                    title: "توست الأفوكادو مع البيض",
-                    ingredients: ["شريحتان خبز كامل", "نصف حبة أفوكادو", "بيضتان", "رشة فلفل أسود"],
-                    method: "يُهرس الأفوكادو ويوضع فوق الخبز، ثم يضاف البيض المسلوق أو المقلي.",
-                    benefits: "مصدر ممتاز للدهون الصحية والبروتين."
-                },
-                {
-                    title: "بانكيك البروتين",
-                    ingredients: ["بيضتان", "موزة", "50 جرام شوفان", "نصف سكوب بروتين"],
-                    method: "تخلط المكونات وتطهى في مقلاة غير لاصقة.",
-                    benefits: "وجبة مناسبة قبل أو بعد التمرين."
-                },
-                {
-                    title: "الزبادي اليوناني بالفواكه والجرانولا",
-                    ingredients: ["200 جرام زبادي يوناني", "100 جرام توت مشكل", "40 جرام جرانولا", "ملعقة صغيرة عسل"],
-                    benefits: "وجبة سريعة وغنية بالبروتين."
-                }
+                { title: "أومليت الخضروات والجبن", ingredients: ["3 بيضات", "50 جرام سبانخ", "30 جرام جبن قليل الدسم", "نصف حبة فلفل حلو", "ملعقة صغيرة زيت زيتون"], method: "اخفق البيض مع الخضروات ثم اطهها في مقلاة غير لاصقة وأضف الجبن في النهاية.", benefits: "وجبة غنية بالبروتين والدهون الصحية وتساعد على الشعور بالشبع لفترة طويلة." },
+                { title: "الشوفان بالموز وزبدة الفول السوداني", ingredients: ["80 جرام شوفان", "موزة متوسطة", "ملعقة كبيرة زبدة فول سوداني", "كوب حليب", "ملعقة صغيرة عسل"], method: "يُطهى الشوفان مع الحليب ثم تضاف باقي المكونات.", benefits: "مصدر ممتاز للطاقة قبل التمارين." },
+                { title: "توست الأفوكادو مع البيض", ingredients: ["شريحتان خبز كامل", "نصف حبة أفوكادو", "بيضتان", "رشة فلفل أسود"], method: "يُهرس الأفوكادو ويوضع فوق الخبز، ثم يضاف البيض المسلوق أو المقلي.", benefits: "مصدر ممتاز للدهون الصحية والبروتين." },
+                { title: "بانكيك البروتين", ingredients: ["بيضتان", "موزة", "50 جرام شوفان", "نصف سكوب بروتين"], method: "تخلط المكونات وتطهى في مقلاة غير لاصقة.", benefits: "وجبة مناسبة قبل أو بعد التمرين." },
+                { title: "الزبادي اليوناني بالفواكه والجرانولا", ingredients: ["200 جرام زبادي يوناني", "100 جرام توت مشكل", "40 جرام جرانولا", "ملعقة صغيرة عسل"], benefits: "وجبة سريعة وغنية بالبروتين." }
             ],
             lunch: [
-                {
-                    title: "صدر الدجاج مع الأرز البني",
-                    ingredients: ["200 جرام صدر دجاج", "100 جرام أرز بني", "سلطة خضراء", "ملعقة زيت زيتون"],
-                    method: "يشوى الدجاج ويقدم مع الأرز والخضروات.",
-                    benefits: "من أفضل الوجبات لبناء العضلات."
-                },
-                {
-                    title: "راب الدجاج بالخضروات",
-                    ingredients: ["خبز تورتيلا كامل", "150 جرام دجاج مشوي", "خس", "خيار", "طماطم", "حمص"],
-                    benefits: "وجبة متوازنة وسهلة الحمل."
-                },
-                {
-                    title: "سلطة التونة والأفوكادو",
-                    ingredients: ["150 جرام تونة", "نصف حبة أفوكادو", "طماطم كرزية", "خيار", "زيت زيتون"],
-                    benefits: "غنية بالأوميغا 3 والبروتين."
-                },
-                {
-                    title: "سلطة الكينوا والفاصوليا السوداء",
-                    ingredients: ["80 جرام كينوا", "فاصوليا سوداء", "ذرة", "أفوكادو", "عصير ليمون"],
-                    benefits: "مصدر ممتاز للألياف والكربوهيدرات المعقدة."
-                },
-                {
-                    title: "سلطة السيزر بالدجاج",
-                    ingredients: ["200 جرام دجاج مشوي", "خس روماني", "جبن بارميزان", "طماطم كرزية", "صلصة سيزر خفيفة"],
-                    benefits: "وجبة عالية البروتين ومنخفضة السعرات."
-                }
+                { title: "صدر الدجاج مع الأرز البني", ingredients: ["200 جرام صدر دجاج", "100 جرام أرز بني", "سلطة خضراء", "ملعقة زيت زيتون"], method: "يشوى الدجاج ويقدم مع الأرز والخضروات.", benefits: "من أفضل الوجبات لبناء العضلات." },
+                { title: "راب الدجاج بالخضروات", ingredients: ["خبز تورتيلا كامل", "150 جرام دجاج مشوي", "خس", "خيار", "طماطم", "حمص"], benefits: "وجبة متوازنة وسهلة الحمل." },
+                { title: "سلطة التونة والأفوكادو", ingredients: ["150 جرام تونة", "نصف حبة أفوكادو", "طماطم كرزية", "خيار", "زيت زيتون"], benefits: "غنية بالأوميغا 3 والبروتين." },
+                { title: "سلطة الكينوا والفاصوليا السوداء", ingredients: ["80 جرام كينوا", "فاصوليا سوداء", "ذرة", "أفوكادو", "عصير ليمون"], benefits: "مصدر ممتاز للألياف والكربوهيدرات المعقدة." },
+                { title: "سلطة السيزر بالدجاج", ingredients: ["200 جرام دجاج مشوي", "خس روماني", "جبن بارميزان", "طماطم كرزية", "صلصة سيزر خفيفة"], benefits: "وجبة عالية البروتين ومنخفضة السعرات." }
             ],
             dinner: [
-                {
-                    title: "سمك السلمون مع البطاطس الحلوة",
-                    ingredients: ["200 جرام سلمون", "250 جرام بطاطس حلوة", "بروكلي"],
-                    benefits: "مصدر ممتاز للأوميغا 3 والبروتين."
-                },
-                {
-                    title: "لحم بقري مع الأرز البني والخضروات",
-                    ingredients: ["200 جرام لحم بقري", "100 جرام أرز بني", "بروكلي", "فلفل حلو"],
-                    benefits: "يساعد على زيادة الكتلة العضلية."
-                },
-                {
-                    title: "كرات لحم الديك الرومي مع المعكرونة الكاملة",
-                    ingredients: ["200 جرام ديك رومي", "100 جرام معكرونة كاملة", "صلصة مارينارا"],
-                    benefits: "وجبة متوازنة وغنية بالبروتين."
-                },
-                {
-                    title: "أسياخ الدجاج والخضروات",
-                    ingredients: ["200 جرام دجاج", "فلفل حلو", "كوسة", "بصل"],
-                    benefits: "وجبة صحية قليلة الدهون."
-                },
-                {
-                    title: "الجمبري مع الأرز والخضروات",
-                    ingredients: ["200 جرام جمبري", "100 جرام أرز", "خضروات مشكلة"],
-                    benefits: "مصدر بروتين عالي وسعرات معتدلة."
-                }
+                { title: "سمك السلمون مع البطاطس الحلوة", ingredients: ["200 جرام سلمون", "250 جرام بطاطس حلوة", "بروكلي"], benefits: "مصدر ممتاز للأوميغا 3 والبروتين." },
+                { title: "لحم بقري مع الأرز البني والخضروات", ingredients: ["200 جرام لحم بقري", "100 جرام أرز بني", "بروكلي", "فلفل حلو"], benefits: "يساعد على زيادة الكتلة العضلية." },
+                { title: "كرات لحم الديك الرومي مع المعكرونة الكاملة", ingredients: ["200 جرام ديك رومي", "100 جرام معكرونة كاملة", "صلصة مارينارا"], benefits: "وجبة متوازنة وغنية بالبروتين." },
+                { title: "أسياخ الدجاج والخضروات", ingredients: ["200 جرام دجاج", "فلفل حلو", "كوسة", "بصل"], benefits: "وجبة صحية قليلة الدهون." },
+                { title: "الجمبري مع الأرز والخضروات", ingredients: ["200 جرام جمبري", "100 جرام أرز", "خضروات مشكلة"], benefits: "مصدر بروتين عالي وسعرات معتدلة." }
             ],
-            snacks: [
-                "التفاح مع زبدة الفول السوداني", "الزبادي اليوناني بالعسل", "المكسرات المشكلة", 
-                "سموثي الفواكه", "أعواد الجزر مع الحمص", "الجبن القريش مع الفواكه", 
-                "الشوكولاتة الداكنة مع اللوز", "الموز مع اللوز", "التمر مع زبدة الفول السوداني", 
-                "مخفوق البروتين مع الشوفان"
-            ],
-            recipes: [
-                "أرز بالدجاج والكاري", "دجاج ترياكي مع الخضروات", "باستا الدجاج بالكريمة الخفيفة", 
-                "ساندويتش الديك الرومي والأفوكادو", "سمك القد المشوي مع البطاطس", "سلطة السلمون المدخن", 
-                "برجر اللحم المنزلي", "بيتزا البروتين الصحية", "شوفان البروتين بالشوكولاتة", 
-                "أرز التونة والخضروات", "فاهيتا الدجاج", "تشيلي اللحم والفاصوليا", "سلطة البيض والأفوكادو", 
-                "دجاج بالليمون والأعشاب", "شاورما الدجاج الصحية", "لازانيا البروتين", 
-                "برجر الدجاج المشوي", "ستيك اللحم مع البطاطس", "أرز الجمبري بالخضروات", "سلطة الفاصوليا البيضاء والتونة"
-            ],
-            drinks: [
-                "سموثي الموز والشوفان", "سموثي التوت والزبادي اليوناني", "عصير البرتقال الطبيعي", 
-                "سموثي الفراولة والموز", "الحليب بالشوكولاتة بعد التمرين", "القهوة السوداء", 
-                "الشاي الأخضر", "الماء مع الليمون والنعناع", "مخفوق البروتين بالفواكه", "عصير البطيخ الطبيعي"
-            ],
-            disclaimer: `
-                <div class="disclaimer-box">
-                    <h4><i class="fas fa-exclamation-triangle"></i> تنويه مهم</h4>
-                    <p>المعلومات والوصفات الغذائية المقدمة في هذا الموقع مخصصة لأغراض تثقيفية وإرشادية عامة، وتهدف إلى تقديم أفكار واقتراحات لوجبات صحية تدعم أهداف اللياقة البدنية المختلفة، سواء كان الهدف بناء العضلات، خسارة الدهون أو الحفاظ على الوزن.</p>
-                    <p>يرجى ملاحظة أن الاحتياجات الغذائية تختلف من شخص لآخر بناءً على عدة عوامل، مثل العمر، الجنس، الوزن، الطول، مستوى النشاط البدني، الحالة الصحية والأهداف الشخصية، لذلك قد لا تكون جميع الوجبات أو الكميات المذكورة مناسبة للجميع.</p>
-                    <p>جميع الوجبات والوصفات الموجودة في الموقع هي أمثلة واقتراحات قابلة للتعديل والاستبدال حسب تفضيلاتك الغذائية واحتياجاتك اليومية، وليست نظامًا غذائيًا إلزاميًا يجب اتباعه حرفيًا.</p>
-                    <p>لا يُعتبر المحتوى الموجود في الموقع بديلاً عن الاستشارة الطبية أو استشارة اختصاصي التغذية المؤهل. إذا كنت تعاني من أي حالة صحية، أو حساسية تجاه بعض الأطعمة، أو تتبع نظامًا غذائيًا خاصًا، فيُنصح باستشارة مختص قبل إجراء أي تغييرات كبيرة على نظامك الغذائي.</p>
-                    <p>كما أن النتائج تختلف من شخص لآخر، وتعتمد على عوامل متعددة تشمل الالتزام بالتغذية، جودة النوم، مستوى النشاط البدني، شدة التمارين والعوامل الوراثية.</p>
-                    <p>يُنصح دائمًا بالاعتماد على التنوع الغذائي، وشرب كميات كافية من الماء، والحصول على قسط كافٍ من النوم، وممارسة النشاط البدني بانتظام للوصول إلى أفضل النتائج الصحية والرياضية.</p>
-                    <p>باستخدامك لهذا الموقع، فإنك تقر بأن مسؤولية تطبيق المعلومات والوصفات الغذائية تقع على عاتقك الشخصي، وأن إدارة الموقع غير مسؤولة عن أي نتائج أو آثار قد تنتج عن سوء الاستخدام أو عدم ملاءمة بعض الأطعمة أو الأنظمة الغذائية لحالتك الفردية.</p>
-                    <p>نهدف من خلال هذا المحتوى إلى مساعدتك على بناء أسلوب حياة صحي وتقديم أفكار متنوعة تسهّل عليك الوصول إلى أهدافك الرياضية بطريقة عملية ومتوازنة.</p>
-                </div>
-            `
+            snacks: [ "التفاح مع زبدة الفول السوداني", "الزبادي اليوناني بالعسل", "المكسرات المشكلة", "سموثي الفواكه", "أعواد الجزر مع الحمص", "الجبن القريش مع الفواكه", "الشوكولاتة الداكنة مع اللوز", "الموز مع اللوز", "التمر مع زبدة الفول السوداني", "مخفوق البروتين مع الشوفان" ],
+            recipes: [ "أرز بالدجاج والكاري", "دجاج ترياكي مع الخضروات", "باستا الدجاج بالكريمة الخفيفة", "ساندويتش الديك الرومي والأفوكادو", "سمك القد المشوي مع البطاطس", "سلطة السلمون المدخن", "برجر اللحم المنزلي", "بيتزا البروتين الصحية", "شوفان البروتين بالشوكولاتة", "أرز التونة والخضروات", "فاهيتا الدجاج", "تشيلي اللحم والفاصوليا", "سلطة البيض والأفوكادو", "دجاج بالليمون والأعشاب", "شاورما الدجاج الصحية", "لازانيا البروتين", "برجر الدجاج المشوي", "ستيك اللحم مع البطاطس", "أرز الجمبري بالخضروات", "سلطة الفاصوليا البيضاء والتونة" ],
+            drinks: [ "سموثي الموز والشوفان", "سموثي التوت والزبادي اليوناني", "عصير البرتقال الطبيعي", "سموثي الفراولة والموز", "الحليب بالشوكولاتة بعد التمرين", "القهوة السوداء", "الشاي الأخضر", "الماء مع الليمون والنعناع", "مخفوق البروتين بالفواكه", "عصير البطيخ الطبيعي" ],
+            disclaimer: `<div class="disclaimer-box"><h4><i class="fas fa-exclamation-triangle"></i> تنويه مهم</h4><p>المعلومات والوصفات الغذائية المقدمة في هذا الموقع مخصصة لأغراض تثقيفية وإرشادية عامة، وتهدف إلى تقديم أفكار واقتراحات لوجبات صحية تدعم أهداف اللياقة البدنية المختلفة، سواء كان الهدف بناء العضلات، خسارة الدهون أو الحفاظ على الوزن.</p><p>يرجى ملاحظة أن الاحتياجات الغذائية تختلف من شخص لآخر بناءً على عدة عوامل، مثل العمر، الجنس، الوزن, الطول، مستوى النشاط البدني، الحالة الصحية والأهداف الشخصية، لذلك قد لا تكون جميع الوجبات أو الكميات المذكورة مناسبة للجميع.</p><p>جميع الوجبات والوصفات الموجودة في الموقع هي أمثلة واقتراحات قابلة للتعديل والاستبدال حسب تفضيلاتك الغذائية واحتياجاتك اليومية، وليست نظامًا غذائيًا إلزاميًا يجب اتباعه حرفيًا.</p><p>لا يُعتبر المحتوى الموجود في الموقع بديلاً عن الاستشارة الطبية أو استشارة اختصاصي التغذية المؤهل. إذا كنت تعاني من أي حالة صحية، أو حساسية تجاه بعض الأطعمة، أو تتبع نظامًا غذائيًا خاصًا، فيُنصح باستشارة مختص قبل إجراء أي تغييرات كبيرة على نظامك الغذائي.</p><p>كما أن النتائج تختلف من شخص لآخر، وتعتمد على عوامل متعددة تشمل الالتزام بالتغذية، جودة النوم، مستوى النشاط البدني، شدة التمارين والعوامل الوراثية.</p><p>يُنصح دائمًا بالاعتماد على التنوع الغذائي، وشرب كميات كافية من الماء، والحصول على قسط كافٍ من النوم، وممارسة النشاط البدني بانتظام للوصول إلى أفضل النتائج الصحية والرياضية.</p><p>باستخدامك لهذا الموقع، فإنك تقر بأن مسؤولية تطبيق المعلومات والوصفات الغذائية تقع على عاتقك الشخصي، وأن إدارة الموقع غير مسؤولة عن أي نتائج أو آثار قد تنتج عن سوء الاستخدام أو عدم ملاءمة بعض الأطعمة أو الأنظمة الغذائية لحالتك الفردية.</p><p>نهدف من خلال هذا المحتوى إلى مساعدتك على بناء أسلوب حياة صحي وتقديم أفكار متنوعة تسهّل عليك الوصول إلى أهدافك الرياضية بطريقة عملية ومتوازنة.</p></div>`
         };
 
         let currentMealCategory = 'breakfast';
@@ -794,7 +866,6 @@
             if (currentMealCategory === 'disclaimer') {
                 html = mealsData.disclaimer;
             } else if (['snacks', 'recipes', 'drinks'].includes(currentMealCategory)) {
-                // Render as compact grid for simple lists
                 const items = mealsData[currentMealCategory];
                 html = '<div class="compact-list" style="grid-column: 1 / -1;">';
                 items.forEach(item => {
@@ -802,7 +873,6 @@
                 });
                 html += '</div>';
             } else {
-                // Render as detailed cards
                 const items = mealsData[currentMealCategory];
                 items.forEach(meal => {
                     let ingHtml = meal.ingredients ? `<ul class="ingredient-list">${meal.ingredients.map(i => `<li>${i}</li>`).join('')}</ul>` : '';
